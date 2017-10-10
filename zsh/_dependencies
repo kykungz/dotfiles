@@ -1,0 +1,2 @@
+# z CLI for auto cd to directory
+. `brew --prefix`/etc/profile.d/z.sh
