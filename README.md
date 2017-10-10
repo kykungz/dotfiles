@@ -1,4 +1,3 @@
-https://git-scm.com/download/mac
 # Environment setup for macOS
 This repository contains configurations, applications and tools when migrating to a new macOS environment. All the setups are based on [Kongpon's](https://github.com/kykungz) preferences, and might not be most people's favorite. Think carefully before running the scripts.
 
