@@ -75,6 +75,11 @@ source ./brew/setup.sh
 
 echo;echo;
 
+echo_green "Running yarn/setup.sh..."
+source ./yarn/setup.sh
+
+echo;echo;
+
 echo_green "Running atom/setup.sh..."
 source ./atom/setup.sh
 
