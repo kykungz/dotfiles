@@ -45,7 +45,7 @@ xcode-select --install
 
 echo;echo;
 
-echo_green "Installing brew..."
+echo_green "Installing Homebrew..."
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew tap caskroom/cask
 brew doctor
@@ -64,7 +64,7 @@ cat ./zsh/_dependencies >> ~/.zshrc
 
 echo;echo;
 
-echo_green "Installing iterm2..."
+echo_green "Installing iTerm2..."
 brew cask install iterm2
 cp -f ./iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
