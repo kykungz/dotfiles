@@ -94,3 +94,6 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - script
 - todo-show
 - vue-format
+
+## ✏️ TODO
+Redirect all output from the installation to dev/null and create a user-friendly interface.
