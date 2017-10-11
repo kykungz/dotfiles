@@ -32,9 +32,16 @@ bash ~/environment-setup/script.sh
 - Yarn
 
 ### Command Line Interface
-- Heroku CLI
+- heroku
 - unrar
 - z
+- vue-cli
+- create-react-app
+- create-react-native-app
+- express-generator
+- gitmoji-cli
+- nodemon
+- kradan
 
 ### Text Editor
 - Atom
