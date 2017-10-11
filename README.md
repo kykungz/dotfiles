@@ -5,8 +5,6 @@ This repository contains configurations, applications and tools when migrating t
 **DO NOT** run the setup snippet if you don't fully understand what it does. It might cause your programs to malfunction due to the configuration files that will be replaced throughout the installation.
 
 ## ⏬ Installation
-- 💡 Required [git](https://git-scm.com/download/mac)
-
 1. Open *Terminal* (in your Applications)
 2. Paste the following script and hit Enter
 ```bash
