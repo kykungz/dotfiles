@@ -31,7 +31,7 @@ echo_green "Starting installation...."
 
 # Check for existance of Xcode
 if [ ! -d "/Applications/Xcode.app" ]; then
-  echo "Xcode is required, try installing from App Store before running the script."
+  printf "${RED}Xcode is required, try installing from App Store before running the script.${NC}"
   exit 1 || return 1
 fi
 
