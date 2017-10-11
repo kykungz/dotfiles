@@ -10,8 +10,7 @@ This repository contains configurations, applications and tools when migrating t
 1. Open *Terminal* (in your Applications)
 2. Paste the following script and hit Enter
 ```bash
-git clone https://github.com/kykungz/environment-setup.git ~/environment-setup
-bash ~/environment-setup/script.sh
+bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)"
 ```
 *Please do not modify the script, otherwise the setup will not perform expectedly.*
 
