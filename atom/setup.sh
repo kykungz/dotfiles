@@ -1,4 +1,4 @@
-echo_green "##### Installing Atom packages..."
+echo_green "Installing Atom packages..."
 
 apm install advanced-open-file
 apm install atom-beautify

@@ -1,3 +1,5 @@
+echo_green "Installing CLIs from Yarn..."
+
 yarn global add vue-cli
 yarn global add create-react-app
 yarn global add create-react-native-app
