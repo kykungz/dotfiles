@@ -31,13 +31,16 @@ fi
 
 echo_green "Starting installation...."
 
+echo;echo;
+
 echo_green "Creating ~/Developer directory in $HOME"
 mkdir ~/Developer
 
 echo;echo;
 
 echo_green "Installing Homebrew..."
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Redirect stdin from dev/null to by pass prompting for RETURN
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
 brew tap caskroom/cask
 brew doctor
 brew update
