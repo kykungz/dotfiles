@@ -2,6 +2,8 @@
 echo_green "##### Installing Environments..."
 brew cask install java
 brew install node
+
+echo_green "##### Installing Dependency Manager..."
 brew install yarn
 
 # Command Line Interface
