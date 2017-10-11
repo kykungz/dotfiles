@@ -18,10 +18,21 @@ echo_yellow() {
   printf "##### ${YELLOW}${1}${NC}\n"
 }
 
+# Installation Confirmation
+printf "##### ${YELLOW}The installation is about to start. Do you wish to continue (Y/n)?${NC} "
+read -n 1 -r
+echo    # move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  printf "##### ${RED}Installation stopped.${NC}"
+  exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+
+echo_green "Starting installation...."
+
 # Check for existance of Xcode
 if [ ! -d "/Applications/Xcode.app" ]; then
   echo "Xcode is required, try installing from App Store before running the script."
-  exit 1
+  exit 1 || return 1
 fi
 
 echo_green "Creating ~/Developer directory in $HOME"
