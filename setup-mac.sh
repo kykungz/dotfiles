@@ -60,12 +60,12 @@ cp -f ./iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 echo;echo;
 
 echo_green "Running brew/setup.sh..."
-./brew/setup.sh
+source ./brew/setup.sh
 
 echo;echo;
 
 echo_green "Running atom/setup.sh..."
-./atom/setup.sh
+source ./atom/setup.sh
 
 echo;echo;
 

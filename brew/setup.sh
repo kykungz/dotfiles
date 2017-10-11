@@ -1,22 +1,22 @@
 # Environment
-echo "##### Installing Environments..."
+echo_green "##### Installing Environments..."
 brew cask install java
 brew install node
 brew install yarn
 
 # Command Line Interface
-echo "##### Installing CLIs..."
+echo_green "##### Installing CLIs..."
 brew install heroku
 brew install unrar
 brew install z
 
 # Editor
-echo "##### Installing Editors..."
+echo_green "##### Installing Editors..."
 brew cask install atom
 brew cask install textmate
 
 # Development Tools
-echo "##### Installing Development Tools..."
+echo_green "##### Installing Development Tools..."
 brew cask install eclipse-java
 brew cask install netbeans-java-se
 brew cask install android-studio
@@ -26,17 +26,17 @@ brew cask install postman
 brew cask install docker
 
 # Browser
-echo "##### Installing Browsers..."
+echo_green "##### Installing Browsers..."
 brew cask install google-chrome
 
 # Messenger
-echo "##### Installing Messengers..."
+echo_green "##### Installing Messengers..."
 brew cask install skype
 
 # Entertainment
-echo "##### Installing Entertainments..."
+echo_green "##### Installing Entertainments..."
 brew cask install vlc
 
 # Utilities
-echo "##### Installing Utilities..."
+echo_green "##### Installing Utilities..."
 brew cask install teamviewer
