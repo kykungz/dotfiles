@@ -4,7 +4,7 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+NC='\033[0m' # Reset (No Color)
 
 echo_red() {
   printf "##### ${RED}${1}${NC}\n"
@@ -19,29 +19,20 @@ echo_yellow() {
 }
 
 # Installation Confirmation
-printf "##### ${YELLOW}The installation is about to start. Do you wish to continue (Y/n)?${NC} "
-read -n 1 -r
-echo    # move to a new line
+echo_green "The installation is about to start..."
+echo_red "DO NOT turn off your Mac during the installation."
+printf "##### ${GREEN}Do you wish to continue${NC} (Y/n)? "
+read -r REPLY
+echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  printf "##### ${RED}Installation stopped.${NC}"
+  echo_red "Installation stopped."
   exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
 fi
 
 echo_green "Starting installation...."
 
-# Check for existance of Xcode
-if [ ! -d "/Applications/Xcode.app" ]; then
-  printf "${RED}Xcode is required, try installing from App Store before running the script.${NC}"
-  exit 1 || return 1
-fi
-
 echo_green "Creating ~/Developer directory in $HOME"
 mkdir ~/Developer
-
-echo;echo;
-
-echo_green "Opening Xcode Command Line Tools installation..."
-xcode-select --install
 
 echo;echo;
 
@@ -111,5 +102,3 @@ echo_green 'Try to restart your Mac complete the process.'
 echo_green 'Enjoy your new Mac !!'
 
 open -a "/Applications/Google Chrome.app" 'https://github.com/kykungz/environment-setup/blob/master/UNLISTED.md'
-
-rm -rf ~/environment-setup
