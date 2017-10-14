@@ -66,6 +66,7 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - TeamViewer
 
 ### Atom Packages
+- Sublime-Style-Column-Selection
 - advanced-open-file
 - atom-beautify
 - atom-bootstrap4

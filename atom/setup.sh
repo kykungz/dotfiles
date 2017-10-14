@@ -1,5 +1,6 @@
 echo_green "Installing Atom packages..."
 
+apm install Sublime-Style-Column-Selection
 apm install advanced-open-file
 apm install atom-beautify
 apm install atom-bootstrap4
