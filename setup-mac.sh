@@ -52,9 +52,9 @@ brew install zsh zsh-completions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cp -Rf ./zsh/themes ~/.oh-my-zsh/custom
 cp -f ./zsh/.zshrc ~/.zshrc
-cat ./zsh/_alias >> ~/.zshrc
-cat ./zsh/_functions >> ~/.zshrc
-cat ./zsh/_dependencies >> ~/.zshrc
+cat ./zsh/.alias >> ~/.zshrc
+cat ./zsh/.functions >> ~/.zshrc
+cat ./zsh/.dependencies >> ~/.zshrc
 
 echo;echo;
 
