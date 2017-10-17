@@ -82,3 +82,14 @@ _compile_and_run_c() {
 	./temp_1234 ${2}
 	rm temp_1234
 }
+
+# _myip
+#
+# Author: Kongpon Charanwattanakit
+#
+# Display information about my ip address.
+_myip() {
+	echo '   'local ip: `ipconfig getifaddr en0` | grep 'local ip'
+	route get default | grep gateway
+	echo '  'public ip: `curl -s ipecho.net/plain` | grep 'public ip'
+}
