@@ -9,7 +9,7 @@ if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
    #... is correctly installed
    git clone https://github.com/kykungz/environment-setup.git ~/environment-setup
    echo;echo;
-   sudo bash ~/environment-setup/setup-mac.sh
+   bash ~/environment-setup/setup-mac.sh
    rm -rf ~/environment-setup
 else
    #... isn't correctly installed
