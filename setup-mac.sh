@@ -49,12 +49,12 @@ echo;echo;
 
 echo_green "Installing oh-my-zsh..."
 0>/dev/null sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-cp -Rf ./zsh/themes ~/.oh-my-zsh/custom
-cp -f ./zsh/.zshrc ~/.zshrc
+cp -Rf ~/environment-setup/zsh/themes ~/.oh-my-zsh/custom
+cp -f ~/environment-setup/zsh/.zshrc ~/.zshrc
 
-cat ./zsh/.alias >> ~/.zshrc
-cat ./zsh/.functions >> ~/.zshrc
-cat ./zsh/.dependencies >> ~/.zshrc
+cat ~/environment-setup/zsh/.alias >> ~/.zshrc
+cat ~/environment-setup/zsh/.functions >> ~/.zshrc
+cat ~/environment-setup/zsh/.dependencies >> ~/.zshrc
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
@@ -63,22 +63,22 @@ echo;echo;
 
 echo_green "Installing iTerm2..."
 brew cask install iterm2
-cp -f ./iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
+cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
 echo;echo;
 
 echo_green "Running brew/setup.sh..."
-source ./brew/setup.sh
+source ~/environment-setup/brew/setup.sh
 
 echo;echo;
 
 echo_green "Running yarn/setup.sh..."
-source ./yarn/setup.sh
+source ~/environment-setup/yarn/setup.sh
 
 echo;echo;
 
 echo_green "Running atom/setup.sh..."
-source ./atom/setup.sh
+source ~/environment-setup/atom/setup.sh
 
 echo;echo;
 
