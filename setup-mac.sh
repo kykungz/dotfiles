@@ -101,12 +101,6 @@ git config --global hub.protocol https
 
 echo;echo;
 
-echo_green "Enter your password then hit Enter"
-echo_green "in order to change the default shell."
-chsh -s /bin/zsh
-
-echo;echo;
-
 echo_green 'Installation finished !!'
 echo_green 'Try to restart your Mac complete the process.'
 echo_green 'Enjoy your new Mac !!'
