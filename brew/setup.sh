@@ -11,6 +11,8 @@ echo_green "Installing CLIs..."
 brew install heroku
 brew install unrar
 brew install z
+brew install hub
+brew install archey
 
 # Editor
 echo_green "Installing Editors..."
@@ -42,3 +44,4 @@ brew cask install vlc
 # Utilities
 echo_green "Installing Utilities..."
 brew cask install teamviewer
+brew cask install google-drive-file-stream

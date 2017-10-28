@@ -32,6 +32,8 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - heroku
 - unrar
 - z
+- hub
+- archey
 - vue-cli
 - create-react-app
 - create-react-native-app
@@ -64,6 +66,7 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 
 ### Utilities
 - TeamViewer
+- Google Drive File Stream
 
 ### Atom Packages
 - Sublime-Style-Column-Selection
