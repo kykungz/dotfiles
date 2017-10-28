@@ -16,3 +16,9 @@ Unfortunately, some applications or configurations could not be installed using 
 Download from *App Store*
 - Xcode
 - Line
+
+## Optional
+- Sync atom settings using Atom's *sync-settings* package
+  - `apm install sync-settings`
+  - Set Personal Access Token
+  - Set Gist ID
