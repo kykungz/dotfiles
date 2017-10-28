@@ -97,6 +97,7 @@ git config --global user.name "${name}"
 echo_green "Enter your GitHub email:"
 read email
 git config --global user.email ${email}
+git config --global hub.protocol https
 
 echo;echo;
 
