@@ -29,6 +29,8 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
 fi
 
+sudo -i
+
 echo_green "Starting installation...."
 
 echo;echo;
