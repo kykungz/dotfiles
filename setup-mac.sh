@@ -63,6 +63,9 @@ echo;echo;
 
 echo_green "Installing iTerm2..."
 brew cask install iterm2
+git clone https://github.com/powerline/fonts ~/fonts
+source ~/fonts/install.sh
+rm -rf ~/fonts
 cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
 echo;echo;
