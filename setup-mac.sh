@@ -48,13 +48,14 @@ brew update
 echo;echo;
 
 echo_green "Installing oh-my-zsh..."
-brew install zsh zsh-completions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cp -Rf ./zsh/themes ~/.oh-my-zsh/custom
 cp -f ./zsh/.zshrc ~/.zshrc
 cat ./zsh/.alias >> ~/.zshrc
 cat ./zsh/.functions >> ~/.zshrc
 cat ./zsh/.dependencies >> ~/.zshrc
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 echo;echo;
 
