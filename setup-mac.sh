@@ -107,4 +107,4 @@ echo_green 'Installation finished !!'
 echo_green 'Try to restart your Mac complete the process.'
 echo_green 'Enjoy your new Mac !!'
 
-open -a "/Applications/Google Chrome.app" 'https://github.com/kykungz/environment-setup/blob/master/UNLISTED.md'
+open -a "/Applications/Google Chrome.app" 'https://github.com/kykungz/environment-setup/blob/master/ADDITIONAL_STEP.md'
