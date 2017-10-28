@@ -100,4 +100,4 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - vue-format
 
 ## ✏️ TODO
-Redirect all output from the installation to dev/null and create a user-friendly interface.
+Add StandardJS to global setting
