@@ -48,7 +48,7 @@ brew update
 echo;echo;
 
 echo_green "Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+0>/dev/null sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cp -Rf ./zsh/themes ~/.oh-my-zsh/custom
 cp -f ./zsh/.zshrc ~/.zshrc
 
