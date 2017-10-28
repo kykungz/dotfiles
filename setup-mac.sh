@@ -55,6 +55,7 @@ cp -f ~/environment-setup/zsh/.zshrc ~/.zshrc
 cat ~/environment-setup/zsh/.alias >> ~/.zshrc
 cat ~/environment-setup/zsh/.functions >> ~/.zshrc
 cat ~/environment-setup/zsh/.dependencies >> ~/.zshrc
+cat ~/environment-setup/bash/.dependencies >> ~/.bash_profile
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
@@ -84,6 +85,14 @@ echo_green "Running atom/setup.sh..."
 source ~/environment-setup/atom/setup.sh
 
 echo;echo;
+
+echo_green "Running pip/setup.sh..."
+source ~/environment-setup/pip/setup.sh
+echo '# Add python3 to env\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
+
+echo;echo;
+
+# TODO: Add script for importing Atom settings.
 
 echo_green 'Your setup is about to finish!'
 echo_green 'Just a few configurations and you are ready to go!'

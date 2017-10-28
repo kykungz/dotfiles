@@ -24,6 +24,7 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 ### Environment
 - Java (JDK)
 - Node / NPM
+- Anaconda (Python3)
 
 ### Dependency Manager
 - Yarn

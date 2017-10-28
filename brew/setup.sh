@@ -2,6 +2,7 @@
 echo_green "Installing Environments..."
 brew cask install java
 brew install node
+brew cask install anaconda
 
 echo_green "Installing Dependency Manager..."
 brew install yarn
