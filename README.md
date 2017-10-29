@@ -16,7 +16,7 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 In case you want to install only a part of this setup, for example, only `atom` or `iterm2`.
 
 | Description | Script |
-|-
+|-|-|
 | Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" atom`
 | iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
 | Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" fonts`
