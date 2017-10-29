@@ -71,7 +71,6 @@ echo;echo;
 
 echo_green "Installing iTerm2..."
 brew cask install iterm2
-cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
 echo;echo;
 
@@ -87,15 +86,23 @@ echo;echo;
 
 echo_green "Running atom/setup.sh..."
 source ~/environment-setup/atom/setup.sh
-cp -f ~/environment-setup/atom/config.cson ~/.atom/config.cson
-cp -f ~/environment-setup/atom/keymap.cson ~/.atom/keymap.cson
-cp -f ~/environment-setup/atom/styles.less ~/.atom/styles.less
 
 echo;echo;
 
 echo_green "Running pip/setup.sh..."
 source ~/environment-setup/pip/setup.sh
 echo '# Add python3 to env\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
+
+echo;echo;
+
+echo_green "Overiding apps settings..."
+cp -f ~/environment-setup/atom/config.cson ~/.atom/config.cson
+cp -f ~/environment-setup/atom/keymap.cson ~/.atom/keymap.cson
+cp -f ~/environment-setup/atom/styles.less ~/.atom/styles.less
+
+cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
+
+cp -f ~/environment-setup/mate/com.macromates.TextMate.plist ~/Library/Preferences/
 
 echo;echo;
 
