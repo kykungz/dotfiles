@@ -5,8 +5,7 @@ NC='\033[0m' # Reset (No Color)
 MODULE=$0
 
 # Check for existance of Xcode Command Line Interface
-if type xcode-select >&- && xpath=$( xcode-select --print-path )
-  && test -d "${xpath}" && test -x "${xpath}" ; then
+if type xcode-select >&- && xpath=$( xcode-select --print-path ) && test -d "${xpath}" && test -x "${xpath}" ; then
   #... is correctly installed
   rm -rf ~/environment-setup
   git clone https://github.com/kykungz/environment-setup.git ~/environment-setup
