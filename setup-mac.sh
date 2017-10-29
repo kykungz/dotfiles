@@ -63,6 +63,7 @@ git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugi
 echo;echo;
 
 echo_green "Installing Powerline Fonts..."
+rm -rf ~/fonts
 git clone https://github.com/powerline/fonts ~/fonts
 source ~/fonts/install.sh
 rm -rf ~/fonts
@@ -101,8 +102,6 @@ cp -f ~/environment-setup/atom/keymap.cson ~/.atom/keymap.cson
 cp -f ~/environment-setup/atom/styles.less ~/.atom/styles.less
 
 cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
-
-cp -f ~/environment-setup/mate/com.macromates.TextMate.plist ~/Library/Preferences/
 
 echo;echo;
 
