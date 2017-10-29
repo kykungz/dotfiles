@@ -11,7 +11,7 @@ if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
    git clone https://github.com/kykungz/environment-setup.git ~/environment-setup
    echo;echo;
    #  bash ~/environment-setup/${1}/setup.sh
-   echo "~/environment-setup/${1}/setup.sh"
+   echo "~/environment-setup/${0}/setup.sh"
    rm -rf ~/environment-setup
 else
    #... isn't correctly installed
