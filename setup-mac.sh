@@ -62,11 +62,15 @@ git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugi
 
 echo;echo;
 
-echo_green "Installing iTerm2..."
-brew cask install iterm2
+echo_green "Installing Powerline Fonts..."
 git clone https://github.com/powerline/fonts ~/fonts
 source ~/fonts/install.sh
 rm -rf ~/fonts
+
+echo;echo;
+
+echo_green "Installing iTerm2..."
+brew cask install iterm2
 cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
 echo;echo;
@@ -83,6 +87,9 @@ echo;echo;
 
 echo_green "Running atom/setup.sh..."
 source ~/environment-setup/atom/setup.sh
+cp -f ~/environment-setup/atom/config.cson ~/.atom/config.cson
+cp -f ~/environment-setup/atom/keymap.cson ~/.atom/keymap.cson
+cp -f ~/environment-setup/atom/styles.less ~/.atom/styles.less
 
 echo;echo;
 
@@ -91,8 +98,6 @@ source ~/environment-setup/pip/setup.sh
 echo '# Add python3 to env\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
 
 echo;echo;
-
-# TODO: Add script for importing Atom settings.
 
 echo_green 'Your setup is about to finish!'
 echo_green 'Just a few configurations and you are ready to go!'

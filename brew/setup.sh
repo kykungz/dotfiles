@@ -44,5 +44,4 @@ brew cask install vlc
 
 # Utilities
 echo_green "Installing Utilities..."
-brew cask install teamviewer
 brew cask install google-drive-file-stream

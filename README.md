@@ -66,7 +66,6 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - VLC
 
 ### Utilities
-- TeamViewer
 - Google Drive File Stream
 
 ### Atom Packages
@@ -76,9 +75,7 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - atom-bootstrap4
 - atom-html-preview
 - atom-jest-snippets
-- atom-ternjs
 - autocomplete-modules
-- autocomplete-python
 - busy-signal
 - color-picker
 - emmet
@@ -91,12 +88,14 @@ bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/set
 - linter
 - linter-clang
 - linter-eslint
+- linter-python
 - linter-ui-default
 - minimap
 - pigments
 - platformio-ide-terminal
 - react
 - script
+- standardjs-snippets
 - todo-show
 - vue-format
 

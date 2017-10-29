@@ -6,9 +6,7 @@ apm install atom-beautify
 apm install atom-bootstrap4
 apm install atom-html-preview
 apm install atom-jest-snippets
-apm install atom-ternjs
 apm install autocomplete-modules
-apm install autocomplete-python
 apm install busy-signal
 apm install color-picker
 apm install emmet
@@ -21,11 +19,13 @@ apm install language-x86-64-assembly
 apm install linter
 apm install linter-clang
 apm install linter-eslint
+apm install linter-python
 apm install linter-ui-default
 apm install minimap
 apm install pigments
 apm install platformio-ide-terminal
 apm install react
 apm install script
+apm install standardjs-snippets
 apm install todo-show
 apm install vue-format

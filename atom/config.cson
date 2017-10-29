@@ -1,0 +1,43 @@
+"*":
+  "Sublime-Style-Column-Selection": {}
+  "advanced-open-file":
+    createDirectories: true
+    createFileInstantly: true
+  "atom-jest-snippets":
+    toggleSemicolons: false
+  core:
+    disabledPackages: [
+      "jquery-snippets"
+    ]
+    telemetryConsent: "limited"
+  editor:
+    fontSize: 15
+  emmet:
+    useEmmetComments: true
+  "linter-eslint": {}
+  "linter-python":
+    executablePath: "/usr/local/anaconda3/bin/pylama"
+  "linter-ui-default":
+    panelHeight: 69
+    showPanel: true
+  minimap: {}
+  "platformio-ide-terminal":
+    ansiColors:
+      normal:
+        blue: "#0065cc"
+      zBright:
+        brightBlue: "#007dfd"
+    style:
+      fontFamily: "Inconsolata for Powerline"
+      fontSize: "16"
+  script:
+    stopOnRerun: true
+  "todo-show":
+    showInTable: [
+      "Text"
+      "Path"
+    ]
+  "tree-view":
+    autoReveal: true
+  welcome:
+    showOnStartup: false
