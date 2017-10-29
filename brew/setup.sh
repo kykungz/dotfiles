@@ -1,6 +1,8 @@
+check_brew
+
 # Environment
 echo_green "Installing Environments..."
-brew cask install java
+brew cask install caskroom/versions/java8 # (java 9 is not supported on Netbeans 8.2)
 brew install node
 brew cask install anaconda
 

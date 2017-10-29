@@ -1,9 +1,9 @@
-echo_green "Installing CLIs from Yarn..."
+if ! [ -x "$(command -v yarn)" ]; then
+  check_brew
+  echo_red 'Yarn not found.'
+  echo_green 'Installing Yarn...'
+  brew install yarn
+fi
 
-yarn global add vue-cli
-yarn global add create-react-app
-yarn global add create-react-native-app
-yarn global add express-generator
-yarn global add gitmoji-cli
-yarn global add nodemon
-yarn global add kradan
+echo_green "Installing CLIs from Yarn..."
+yarn global add $(tr '\n' ' ' < ~/environment-setup/yarn/packages.txt)
