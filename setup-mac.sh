@@ -84,8 +84,8 @@ source ~/environment-setup/yarn/setup.sh
 
 echo;echo;
 
-echo_green "Running atom/setup.sh..."
-source ~/environment-setup/atom/setup.sh
+echo_green "Installing Atom packages..."
+apm install --packages-file ~/environment-setup/atom/packages.txt
 
 echo;echo;
 
