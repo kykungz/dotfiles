@@ -2,6 +2,8 @@
 Unfortunately, some applications or configurations could not be installed using automation scripts. So you need to install it manually.
 
 ## Preferences
+- Change Trackpad's Tracking speed to 7
+  - System Preferences... → Trackpad → Tracking Speed
 - Add *Spotlight* and *Screenshot* to Touchbar
   - System Preferences... → Keyboard → Customize Control Strip...
 - Change **Caps Lock (⇪)** to **⌃ Control**
