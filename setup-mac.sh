@@ -112,7 +112,7 @@ echo_green 'Just a few configurations and you are ready to go!'
 echo;echo;
 
 echo_green "Setting up your git profile..."
-echo_green "Enter your GitHub name:"
+echo_green "Enter your GitHub full name:"
 read -r name
 git config --global user.name "${name}"
 echo_green "Enter your GitHub email:"
