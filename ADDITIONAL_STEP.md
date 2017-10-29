@@ -8,6 +8,10 @@ Unfortunately, some applications or configurations could not be installed using 
   - System Preferences... → Keyboard → Customize Control Strip...
 - Change **Caps Lock (⇪)** to **⌃ Control**
   - System Preferences... → Keyboard → Modifier Keys...
+- Disable Spotlight search (which is using *Command (⌘) + Space* shortcut)
+  - System Preferences... → Keyboard → Shortcuts → Spotlight → Disable Show Spotlight search
+- Change *Input Sources* shortcut to (Command (⌘) + Space)
+  - System Preferences... → Keyboard → Shortcuts → Input Sources → Change *Select the previous input source* shortcut to **Command (⌘) + Space**
 - Change Touchbar in Eclipse to normal Function Keys
   - System Preferences... → Keyboard → Shortcuts → Function Keys → Add(+) Eclipse
 - Change *Terminal* shell to /bin/bash
