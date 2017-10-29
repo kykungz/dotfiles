@@ -3,6 +3,7 @@ if ! [ -x "$(command -v hub)" ]; then
   echo_red 'hub not found.'
   echo_green 'Installing hub...'
   brew install hub
+  git config --global hub.protocol https
 fi
 
 if ! [ -x "$(command -v archey)" ]; then

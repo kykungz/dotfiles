@@ -17,17 +17,13 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 | Description | Script |
 |-
-| Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" atom`
-| Oh-my-zsh plugins, themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" zsh`
-| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" zsh`
-| Homebrew applications (**does not** include Homebrew itself) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" zsh`
-
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" atom
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" brew
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" iterm
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" pip
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" yarn
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-module.sh)" zsh
+| Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" atom`
+| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
+| Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" fonts`
+| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" brew`
+| Pip packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" pip`
+| Yarn packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" yarn`
+| Oh-my-zsh plugins and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" zsh`
 
 ## ❓ What will be installed
 ### Package Manager
