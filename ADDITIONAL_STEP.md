@@ -14,6 +14,9 @@ Unfortunately, some applications or configurations could not be installed using 
 #### Disable Spotlight search (which is using *Command (⌘) + Space* shortcut)
 > System Preferences... → Keyboard → Shortcuts → Spotlight → Disable Show Spotlight search
 
+#### Disable Mission Control shortcuts (which is using *F11* and *F12*)
+> System Preferences... → Keyboard → Shortcuts → Mission Control → Disable Show Desktop & Show Dashboard
+
 #### Change *Input Sources* shortcut to (Command (⌘) + Space)
 > System Preferences... → Keyboard → Shortcuts → Input Sources → Change *Select the previous input source* shortcut to **Command (⌘) + Space**
 
