@@ -8,11 +8,15 @@ Unfortunately, some applications or configurations could not be installed using 
   - System Preferences... → Keyboard → Customize Control Strip...
 - Change **Caps Lock (⇪)** to **⌃ Control**
   - System Preferences... → Keyboard → Modifier Keys...
+- Change Touchbar in Eclipse to normal Function Keys
+  - System Preferences... → Keyboard → Shortcuts → Function Keys → Add(+) Eclipse
 - Change *Terminal* shell to /bin/bash
   - Open *Terminal* → Preferences... → Shells open With → Command (complete path): **/bin/bash**
 - Add *Developer* and *Home(~)* directory to Finder's Favorites
   - Open *Finder* → Preferences... → Sidebar → Check *Home(~)* directory
   - Locate to *Home(~)* and drag *Developer* directory to Favorites
+- Turn Dock's Magnification **off**
+  - Right click at Dock → Turn Magnification Off
 
 ## Applications
 Download from *App Store*
