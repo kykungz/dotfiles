@@ -14,6 +14,7 @@ if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
    rm -rf ~/environment-setup
 else
    #... isn't correctly installed
+   echo;echo;
    printf "##### ${RED}Xcode Command Line Tools is required.${NC}\n"
    printf "##### ${RED}Run the script again after finished installing.${NC}\n"
    printf "##### ${GREEN}Opening installation...${NC}"
