@@ -14,7 +14,9 @@ if type xcode-select >&- && xpath=$( xcode-select --print-path ) && test -d "${x
     bash -c "
       source ~/environment-setup/utils.sh;
       prompt_install;
-      source ~/environment-setup/${MODULE}/setup.sh"
+      source ~/environment-setup/${MODULE}/setup.sh
+      echoecho;
+      echo_green Done!"
   else
     bash ~/environment-setup/setup-mac.sh
   fi
