@@ -4,18 +4,19 @@ check_brew
 echo_green "Installing Environments..."
 brew cask install caskroom/versions/java8 # (java 9 is not supported on Netbeans 8.2)
 brew install node
-brew cask install anaconda
+source ~/environment-setup/python/setup.sh
 
 echo_green "Installing Dependency Manager..."
 brew install yarn
 
-# Command Line Interface
+# Command Line Interface (CLIs)
 echo_green "Installing CLIs..."
 brew install heroku
 brew install unrar
 brew install z
 brew install hub
 brew install archey
+brew install tree
 
 # Editor
 echo_green "Installing Editors..."

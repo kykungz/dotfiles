@@ -1,2 +1,0 @@
-# Add python3 to env
-export PATH="/usr/local/anaconda3/bin:$PATH"

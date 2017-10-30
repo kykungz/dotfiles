@@ -17,10 +17,11 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 | Description | Script |
 |-|-|
+| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" apps`
 | Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" atom`
+| Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" python`
 | iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
 | Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" fonts`
-| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" brew`
 | Pip packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" pip`
 | Yarn packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" yarn`
 | Oh-my-zsh plugins and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" zsh`
@@ -37,17 +38,18 @@ In case you want to install only a part of this setup, for example, only `atom` 
 ### Environment
 - Java (JDK)
 - Node / NPM
-- Anaconda (Python3)
+- Anaconda3 (Python)
 
 ### Dependency Manager
 - Yarn
 
-### Command Line Interface
+### Command Line Interface (CLIs)
 - heroku
 - unrar
 - z
 - hub
 - archey
+- tree
 - vue-cli
 - create-react-app
 - create-react-native-app
@@ -113,4 +115,6 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - vue-format
 
 ## ✏️ TODO
-Add StandardJS to global setting
+- Add StandardJS to global setting
+- Add update environment command ex. `~/environment-setup/update.sh`
+- Change `environment-setup` to `dotfiles`

@@ -1,9 +1,6 @@
 # z CLI for auto cd to directory
 . `brew --prefix`/etc/profile.d/z.sh
 
-# Add python3 to env
-export PATH="/usr/local/anaconda3/bin:$PATH"
-
 # zsh-completions
 autoload -U compinit && compinit
 

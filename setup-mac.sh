@@ -26,8 +26,9 @@ echo;echo;
 source ~/environment-setup/iterm/setup.sh
 echo;echo;
 
-# Homebrew formulas
-source ~/environment-setup/brew/setup.sh
+# Applications, Environments and CLIs
+# Anaconda3
+source ~/environment-setup/apps/setup.sh
 echo;echo;
 
 # Pip packages
