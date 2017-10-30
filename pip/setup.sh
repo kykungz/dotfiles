@@ -1,6 +1,6 @@
 if ! [ -x "$(command -v anaconda)" ]; then
   echo_red 'Anaconda(Python) not found.'
-  source ~/environment-setup/python/setup.sh
+  source ~/environment-setup/anaconda/setup.sh
 fi
 
 echo_green "Installing packages from pip..."

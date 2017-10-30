@@ -19,9 +19,9 @@ In case you want to install only a part of this setup, for example, only `atom` 
 |-|-|
 | Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" apps`
 | Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" atom`
-| Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" python`
-| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
+| Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" anaconda`
 | Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" fonts`
+| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
 | Pip packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" pip`
 | Yarn packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" yarn`
 | Oh-my-zsh plugins and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" zsh`
