@@ -17,6 +17,11 @@ brew install z
 brew install hub
 brew install archey
 brew install tree
+brew install ngrok
+brew install mas
+
+# Signin App Store
+mas signin --dialog ''
 
 # Editor
 echo_green "Installing Editors..."
@@ -32,6 +37,7 @@ brew cask install sequel-pro
 brew cask install sourcetree
 brew cask install postman
 brew cask install docker
+mas install 497799835 # Xcode
 
 # Browser
 echo_green "Installing Browsers..."
@@ -39,6 +45,7 @@ brew cask install google-chrome
 
 # Messenger
 echo_green "Installing Messengers..."
+mas install 539883307 # LINE
 brew cask install skype
 
 # Entertainment
@@ -48,3 +55,4 @@ brew cask install vlc
 # Utilities
 echo_green "Installing Utilities..."
 brew cask install google-drive-file-stream
+mas install 425424353 # The Unarchiver

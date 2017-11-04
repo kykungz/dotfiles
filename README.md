@@ -50,6 +50,8 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - hub
 - archey
 - tree
+- ngrok
+- mas
 - vue-cli
 - create-react-app
 - create-react-native-app
