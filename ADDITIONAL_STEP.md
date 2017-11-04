@@ -31,8 +31,14 @@ Unfortunately, some applications or configurations could not be installed using 
 
 > Locate to *Home(~)* and drag *Developer* directory to Favorites
 
+#### Change Finder default to *Home(~)* folder
+> Open *Finder* → Preferences... → General → new Finder windows show
+
 #### Turn Dock's Magnification **off**
 > Right click at Dock → Turn Magnification Off
+
+#### Disable Cache on Chrome Devtool
+> Open *Chrome* → Right Click → Inspect Element → Disable Cache
 
 ## Applications
 Download from *App Store*
