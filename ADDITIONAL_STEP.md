@@ -40,11 +40,6 @@ Unfortunately, some applications or configurations could not be installed using 
 #### Disable Cache on Chrome Devtool
 > Open *Chrome* → Right Click → Inspect Element → Disable Cache
 
-## Applications
-Download from *App Store*
-- Xcode
-- Line
-
 ## Optional
 - Sync atom settings using Atom's *sync-settings* package
   - `apm install sync-settings`

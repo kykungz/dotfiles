@@ -5,6 +5,6 @@ if [ ! -e "/Applications/iTerm.app" ]; then
   brew cask install iterm2
 fi
 
-source ~/environment-setup/fonts/setup.sh
+source ~/dotfiles/fonts/setup.sh
 
-cp -f ~/environment-setup/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
+cp -f ~/dotfiles/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/

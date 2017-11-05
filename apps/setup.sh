@@ -4,7 +4,7 @@ check_brew
 echo_green "Installing Environments..."
 brew cask install caskroom/versions/java8 # (java 9 is not supported on Netbeans 8.2)
 brew install node
-source ~/environment-setup/anaconda/setup.sh
+source ~/dotfiles/anaconda/setup.sh
 
 echo_green "Installing Dependency Manager..."
 brew install yarn

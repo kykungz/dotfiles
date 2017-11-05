@@ -6,4 +6,4 @@ if ! [ -x "$(command -v yarn)" ]; then
 fi
 
 echo_green "Installing CLIs from Yarn..."
-yarn global add $(tr '\n' ' ' < ~/environment-setup/yarn/packages.txt)
+yarn global add $(tr '\n' ' ' < ~/dotfiles/yarn/packages.txt)

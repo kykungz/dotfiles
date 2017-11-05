@@ -1,3 +1,4 @@
+
 # _git_update [MESSAGE] [BRANCH]
 #
 # Author: Kongpon Charanwattanakit
@@ -24,14 +25,19 @@ _git_update() {
 # Creating new GitHub repository on current directory.
 # Specify TYPE to automatically create .gitignore file from gitignore.io.
 _create_new_repo() {
+	GREEN='\033[0;32m'
+	GREY='\e[37m'
+	BOLD='\033[1m'
+	NC='\033[0m' # Reset (No Color)
+
 	# prompt for gitignore file
-	echo -n ".gitignore file type: "
+	echo -n "\n${GREEN}?${NC} ${BOLD}.gitignore file type${NC} ${GREY}(enter to skip)${NC} "
 	read answer
 	# check if argument is passed
 	if [ "$answer" ]; then
 		if [ "$answer" = "." ]; then
 			echo "Creating default .gitignore file..."
-			print '.*'"\n"'*~' > .gitignore
+			echo '.DS_Store\n.*\n!.gitignore' > .gitignore
 		else
 			echo "Creating .gitignore file from gitignore.io..."
 			gi "$answer" > .gitignore
@@ -56,14 +62,14 @@ _create_gitignore() {
 	if [ "$1" ]; then
 		if [ "$1" = "." ]; then
 			echo "Creating default .gitignore file..."
-			print '.*'"\n"'*~' > .gitignore
+			echo '.DS_Store\n.*\n!.gitignore' > .gitignore
 		else
 			echo "Creating .gitignore file from gitignore.io..."
 			gi "$1" > .gitignore
 		fi
 	else
 		echo "Creating default .gitignore file..."
-		print '.*'"\n"'*~' > .gitignore
+		echo '.DS_Store\n.*\n!.gitignore' > .gitignore
 	fi
 	cat .gitignore
 }

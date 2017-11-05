@@ -1,7 +1,7 @@
 # Created by Kongpon Charanwattanakit
 # https://github.com/kykungz
 
-source ~/environment-setup/utils.sh
+source ~/dotfiles/utils.sh
 
 # Installation Confirmation
 prompt_install
@@ -23,28 +23,28 @@ echo;echo;
 
 # iTerm2
 # Powerline fonts
-source ~/environment-setup/iterm/setup.sh
+source ~/dotfiles/iterm/setup.sh
 echo;echo;
 
 # Applications, Environments and CLIs
 # Anaconda3
-source ~/environment-setup/apps/setup.sh
+source ~/dotfiles/apps/setup.sh
 echo;echo;
 
 # Pip packages
-source ~/environment-setup/pip/setup.sh
+source ~/dotfiles/pip/setup.sh
 echo;echo;
 
 # Yarn packages
-source ~/environment-setup/yarn/setup.sh
+source ~/dotfiles/yarn/setup.sh
 echo;echo;
 
 # Atom packages and settings
-source ~/environment-setup/atom/setup.sh
+source ~/dotfiles/atom/setup.sh
 echo;echo;
 
 # Oh-my-zsh
-source ~/environment-setup/zsh/setup.sh
+source ~/dotfiles/zsh/setup.sh
 echo;echo;
 
 echo_green 'Your setup is about to finish!'
@@ -67,4 +67,4 @@ echo_green 'Installation finished !!'
 echo_green 'Try to restart your Mac complete the process.'
 echo_green 'Enjoy your new Mac !!'
 
-open -a "/Applications/Google Chrome.app" 'https://github.com/kykungz/environment-setup/blob/master/ADDITIONAL_STEP.md'
+open -a "/Applications/Google Chrome.app" 'https://github.com/kykungz/dotfiles/blob/master/ADDITIONAL_STEP.md'

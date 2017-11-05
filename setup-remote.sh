@@ -15,19 +15,17 @@ if [ ! -d "$(xcode-select -p)" ]; then
   printf "##### ${GREEN}Done installing Xcode Command Line Tools.${NC}"
 fi
 
-rm -rf ~/environment-setup
-git clone https://github.com/kykungz/environment-setup.git ~/environment-setup
+rm -rf ~/dotfiles
+git clone https://github.com/kykungz/dotfiles.git ~/dotfiles
 echo;echo;
 
 if [ "$MODULE" ]; then
   bash -c "
-    source ~/environment-setup/utils.sh;
+    source ~/dotfiles/utils.sh;
     prompt_install;
-    source ~/environment-setup/${MODULE}/setup.sh
+    source ~/dotfiles/${MODULE}/setup.sh
     echoecho;
     echo_green Done!"
 else
-  bash ~/environment-setup/setup-mac.sh
+  bash ~/dotfiles/setup-mac.sh
 fi
-
-rm -rf ~/environment-setup

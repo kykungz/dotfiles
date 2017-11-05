@@ -8,7 +8,7 @@ This repository contains configurations, applications and tools when migrating t
 1. Open *Terminal* (in your Applications)
 2. Paste the following script and hit Enter
 ```bash
-bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)"
+bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)"
 ```
 *Please do not modify the script, otherwise the setup will not perform expectedly.*
 
@@ -17,14 +17,14 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 | Description | Script |
 |-|-|
-| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" apps`
-| Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" atom`
-| Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" anaconda`
-| Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" fonts`
-| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" iterm`
-| Pip packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" pip`
-| Yarn packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" yarn`
-| Oh-my-zsh plugins and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/environment-setup/master/setup-remote.sh)" zsh`
+| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" apps`
+| Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" atom`
+| Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" anaconda`
+| Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" fonts`
+| iTerm2 themes and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" iterm`
+| Pip packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" pip`
+| Yarn packages | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" yarn`
+| Oh-my-zsh plugins and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" zsh`
 
 ## ❓ What will be installed
 ### Package Manager
@@ -84,6 +84,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 ### Utilities
 - Google Drive File Stream
+- The Unarchiver
 
 ### Atom Packages
 - Sublime-Style-Column-Selection
@@ -118,5 +119,4 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 ## ✏️ TODO
 - Add StandardJS to global setting
-- Add update environment command ex. `~/environment-setup/update.sh`
-- Change `environment-setup` to `dotfiles`
+- Add update environment command ex. `~/dotfiles/update.sh`
