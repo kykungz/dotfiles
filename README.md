@@ -90,7 +90,6 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - Sublime-Style-Column-Selection
 - advanced-open-file
 - atom-beautify
-- atom-bootstrap4
 - atom-html-preview
 - atom-jest-snippets
 - autocomplete-modules
@@ -115,6 +114,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - script
 - standardjs-snippets
 - todo-show
+- v-bootstrap4
 - vue-format
 
 ## ✏️ TODO

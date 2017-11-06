@@ -1,7 +1,6 @@
 Sublime-Style-Column-Selection
 advanced-open-file
 atom-beautify
-atom-bootstrap4
 atom-html-preview
 atom-jest-snippets
 autocomplete-modules
@@ -26,4 +25,5 @@ react
 script
 standardjs-snippets
 todo-show
+v-bootstrap4
 vue-format
