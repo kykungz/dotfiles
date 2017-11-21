@@ -44,6 +44,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - Yarn
 
 ### Command Line Interface (CLIs)
+- ccat
 - heroku
 - unrar
 - z
@@ -59,6 +60,8 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - gitmoji-cli
 - nodemon
 - kradan
+- ngrok
+- serve
 
 ### Text Editor
 - Atom

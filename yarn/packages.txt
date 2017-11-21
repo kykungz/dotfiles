@@ -5,3 +5,5 @@ express-generator
 gitmoji-cli
 nodemon
 kradan
+ngrok
+serve

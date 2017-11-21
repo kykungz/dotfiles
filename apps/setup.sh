@@ -11,6 +11,7 @@ brew install yarn
 
 # Command Line Interface (CLIs)
 echo_green "Installing CLIs..."
+brew install ccat
 brew install heroku
 brew install unrar
 brew install z
