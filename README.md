@@ -44,6 +44,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - Yarn
 
 ### Command Line Interface (CLIs)
+- git
 - ccat
 - heroku
 - unrar
