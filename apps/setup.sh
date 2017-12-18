@@ -39,11 +39,13 @@ brew cask install sequel-pro
 brew cask install sourcetree
 brew cask install postman
 brew cask install docker
+brew cask install mongotron
 mas install 497799835 # Xcode
 
 # Browser
 echo_green "Installing Browsers..."
 brew cask install google-chrome
+brew cask install firefox
 
 # Messenger
 echo_green "Installing Messengers..."
@@ -58,3 +60,4 @@ brew cask install vlc
 echo_green "Installing Utilities..."
 brew cask install google-drive-file-stream
 mas install 425424353 # The Unarchiver
+brew cask install kap

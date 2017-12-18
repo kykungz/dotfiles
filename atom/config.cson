@@ -3,17 +3,19 @@
   "advanced-open-file":
     createDirectories: true
     createFileInstantly: true
+  "atom-beautify":
+    general:
+      _analyticsUserId: "1c09cfed-a347-4bee-a365-1f607bd6794f"
   "atom-jest-snippets":
     toggleSemicolons: false
   core:
-    disabledPackages: [
-      "jquery-snippets"
-    ]
     telemetryConsent: "limited"
   editor:
-    fontSize: 15
+    fontSize: 16
   emmet:
     useEmmetComments: true
+  "exception-reporting":
+    userId: "202ededf-8023-ca2c-c224-5c5f6320030b"
   "linter-eslint": {}
   "linter-python":
     executablePath: "/usr/local/anaconda3/bin/pylama"
@@ -32,6 +34,7 @@
       fontSize: "16"
   script:
     stopOnRerun: true
+  teletype: {}
   "todo-show":
     showInTable: [
       "Text"

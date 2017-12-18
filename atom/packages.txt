@@ -1,7 +1,6 @@
 Sublime-Style-Column-Selection
 advanced-open-file
 atom-beautify
-atom-html-preview
 atom-jest-snippets
 autocomplete-modules
 busy-signal
@@ -24,6 +23,7 @@ platformio-ide-terminal
 react
 script
 standardjs-snippets
+teletype
 todo-show
 v-bootstrap4
 vue-format

@@ -4,6 +4,11 @@
   'cmd-shift-p': 'atom-html-preview:toggle'
 'atom-workspace atom-text-editor:not([mini])':
   'cmd-/': 'editor:toggle-line-comments'
+  'alt-down': 'editor:move-line-down'
+  'alt-up': 'editor:move-line-up'
+  'cmd-alt-down': 'editor:duplicate-lines'
+
+
 # Your keymap
 #
 # Atom keymaps work similarly to style sheets. Just as style sheets use

@@ -63,6 +63,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - kradan
 - ngrok
 - serve
+- koa-generator
 
 ### Text Editor
 - Atom
@@ -76,9 +77,11 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - SourceTree
 - Postman
 - Docker
+- Mongotron
 
 ### Browser
 - Google Chrome
+- Firefox
 
 ### Messenger
 - Skype
@@ -89,6 +92,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 ### Utilities
 - Google Drive File Stream
 - The Unarchiver
+- Kap
 
 ### Atom Packages
 - Sublime-Style-Column-Selection
@@ -117,6 +121,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - react
 - script
 - standardjs-snippets
+- teletype
 - todo-show
 - v-bootstrap4
 - vue-format
