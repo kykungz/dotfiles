@@ -26,7 +26,7 @@ then
     echo_green 'Installing module: ${NC}${MODULE}'
     prompt_install;
     source ~/dotfiles/${MODULE}/setup.sh
-    echoecho;
+    echo;echo;
     echo_green Done!"
 else
   bash ~/dotfiles/setup-mac.sh
