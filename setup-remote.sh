@@ -19,7 +19,7 @@ rm -rf ~/dotfiles
 git clone https://github.com/kykungz/dotfiles.git ~/dotfiles
 echo;echo;
 
-if [ "$MODULE" && $MODULE != "bash" ]; then
+if [ "$MODULE" ] && [ $MODULE != "bash" ]; then
   bash -c "
     source ~/dotfiles/utils.sh;
     echo_green 'Installing module: ${NC}${MODULE}'
