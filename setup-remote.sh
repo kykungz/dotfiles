@@ -22,6 +22,7 @@ echo;echo;
 if [ "$MODULE" ]; then
   bash -c "
     source ~/dotfiles/utils.sh;
+    echo_green 'Installing module: ${NC}${MODULE}'
     prompt_install;
     source ~/dotfiles/${MODULE}/setup.sh
     echoecho;
