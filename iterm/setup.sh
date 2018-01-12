@@ -1,5 +1,3 @@
-source ~/dotfiles/fonts/setup.sh
-
 if [ ! -e "/Applications/iTerm.app" ]; then
 	check_brew
   echo_red 'iTerm2 not found.'
@@ -8,3 +6,5 @@ if [ ! -e "/Applications/iTerm.app" ]; then
 fi
 
 cp -f ~/dotfiles/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/
+
+source ~/dotfiles/fonts/setup.sh
