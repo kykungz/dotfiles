@@ -5,4 +5,7 @@ if ! [ -x "$(command -v anaconda)" ]; then
 fi
 
 echo '# Add anaconda3 to PATH\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
+
 echo '# Add anaconda3 to PATH\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.zshrc
