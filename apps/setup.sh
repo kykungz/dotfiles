@@ -41,6 +41,7 @@ brew cask install postman
 brew cask install docker
 brew cask install mongotron
 mas install 497799835 # Xcode
+sudo xcodebuild -license accept
 
 # Browser
 echo_green "Installing Browsers..."
