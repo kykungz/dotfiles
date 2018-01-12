@@ -22,6 +22,7 @@ brew install tree
 brew install ngrok
 brew install mas
 brew install inetutils
+sudo gem install iStats
 
 # Signin App Store
 mas signin --dialog ''
