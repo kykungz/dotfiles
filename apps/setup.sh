@@ -19,7 +19,7 @@ brew install z
 brew install hub
 brew install archey
 brew install tree
-brew install ngrok
+brew cask install ngrok
 brew install mas
 brew install inetutils
 sudo gem install iStats
