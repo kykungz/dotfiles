@@ -21,6 +21,7 @@ brew install archey
 brew install tree
 brew install ngrok
 brew install mas
+brew install inetutils
 
 # Signin App Store
 mas signin --dialog ''
