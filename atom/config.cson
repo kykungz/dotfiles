@@ -11,7 +11,7 @@
   core:
     telemetryConsent: "limited"
   editor:
-    fontSize: 16
+    showIndentGuide: true
   emmet:
     useEmmetComments: true
   "exception-reporting":

@@ -17,7 +17,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 | Description | Script |
 |-|-|
-| Applications, Environments and CLIs | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" apps`
+| Applications, Environments and CLIs (included Anaconda3) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" apps`
 | Atom's packages and settings | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" atom`
 | Anaconda3 (Python) | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" anaconda`
 | Powerline Fonts | `bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/master/setup-remote.sh)" fonts`
@@ -99,7 +99,6 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - Sublime-Style-Column-Selection
 - advanced-open-file
 - atom-beautify
-- atom-html-preview
 - atom-jest-snippets
 - autocomplete-modules
 - busy-signal
@@ -109,17 +108,19 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - highlight-selected
 - intentions
 - jquery-snippets
+- language-babel
+- language-docker
 - language-vue
 - language-x86-64-assembly
 - linter
 - linter-clang
+- linter-docker
 - linter-eslint
 - linter-python
 - linter-ui-default
 - minimap
 - pigments
 - platformio-ide-terminal
-- react
 - script
 - standardjs-snippets
 - teletype
