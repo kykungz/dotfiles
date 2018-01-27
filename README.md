@@ -77,7 +77,6 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - SourceTree
 - Postman
 - Docker
-- Mongotron
 
 ### Browser
 - Google Chrome
@@ -94,6 +93,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - BetterZip
 - The Unarchiver
 - Kap
+- Paint 2
 
 ### Atom Packages
 - Sublime-Style-Column-Selection
