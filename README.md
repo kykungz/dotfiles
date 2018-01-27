@@ -91,6 +91,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 
 ### Utilities
 - Google Drive File Stream
+- BetterZip
 - The Unarchiver
 - Kap
 

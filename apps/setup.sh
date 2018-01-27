@@ -61,5 +61,6 @@ brew cask install vlc
 # Utilities
 echo_green "Installing Utilities..."
 brew cask install google-drive-file-stream
+brew cask install betterzip
 mas install 425424353 # The Unarchiver
 brew cask install kap
