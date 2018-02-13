@@ -31,16 +31,16 @@ echo;echo;
 source ~/dotfiles/apps/setup.sh
 echo;echo;
 
-# Pip packages
-source ~/dotfiles/pip/setup.sh
-echo;echo;
-
 # Yarn packages
 source ~/dotfiles/yarn/setup.sh
 echo;echo;
 
 # Atom packages and settings
 source ~/dotfiles/atom/setup.sh
+echo;echo;
+
+# Pip packages
+source ~/dotfiles/pip/setup.sh
 echo;echo;
 
 # Oh-my-zsh
