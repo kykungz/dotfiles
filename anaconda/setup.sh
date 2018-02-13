@@ -4,8 +4,8 @@ if ! [ -x "$(command -v anaconda)" ]; then
   brew cask install anaconda
 fi
 
-echo '# Add anaconda3 to PATH\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
+echo '# Add anaconda3 to PATH' >> ~/.bash_profile
 echo 'export PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.bash_profile
 
-echo '# Add anaconda3 to PATH\nexport PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.zshrc
+echo '# Add anaconda3 to PATH' >> ~/.zshrc
 echo 'export PATH="/usr/local/anaconda3/bin:$PATH"' >> ~/.zshrc
