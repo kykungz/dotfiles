@@ -93,6 +93,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - BetterZip
 - The Unarchiver
 - Kap
+- Keynote
 - Paint 2
 
 ### Atom Packages

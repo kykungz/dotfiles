@@ -64,4 +64,5 @@ brew cask install google-drive-file-stream
 brew cask install betterzip
 mas install 425424353 # The Unarchiver
 mas install 736473980 # Paint 2
+mas install 409183694 # Keynote
 brew cask install kap
