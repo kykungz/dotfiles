@@ -1,3 +1,17 @@
+# _checkport [PORT]
+#
+# Author: Kongpon Charanwattanakit
+#
+# Check for port availability
+_checkport() {
+	if [ "$1" ]; then
+		lsof -P -n -iTCP -sTCP:LISTEN | grep $1
+	else
+		lsof -P -n -iTCP -sTCP:LISTEN		
+	fi
+	
+	
+}
 
 # _git_update [MESSAGE] [BRANCH]
 #

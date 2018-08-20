@@ -22,6 +22,9 @@ brew install tree
 brew cask install ngrok
 brew install mas
 brew install inetutils
+brew cask install google-cloud-sdk
+brew install kubernetes-cli
+brew install httpie
 sudo gem install iStats
 
 # Signin App Store
@@ -30,6 +33,7 @@ mas signin --dialog ''
 # Editor
 echo_green "Installing Editors..."
 brew cask install atom
+brew cask install visual-studio-code
 brew cask install textmate
 
 # Development Tools
@@ -62,7 +66,8 @@ brew cask install vlc
 echo_green "Installing Utilities..."
 brew cask install google-drive-file-stream
 brew cask install betterzip
+brew cask install imageoptim
+brew cask install kap
 mas install 425424353 # The Unarchiver
 mas install 736473980 # Paint 2
 mas install 409183694 # Keynote
-brew cask install kap

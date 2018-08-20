@@ -54,7 +54,7 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - tree
 - ngrok
 - mas
-- vue-cli
+- @vue/cli
 - create-react-app
 - create-react-native-app
 - express-generator
@@ -64,6 +64,9 @@ In case you want to install only a part of this setup, for example, only `atom` 
 - ngrok
 - serve
 - koa-generator
+- n
+- flow-bin
+- firebase-tools
 
 ### Text Editor
 - Atom
