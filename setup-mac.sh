@@ -22,7 +22,6 @@ brew update
 echo;echo;
 
 # iTerm2
-# Powerline fonts
 source ~/dotfiles/iterm/setup.sh
 echo;echo;
 
@@ -45,6 +44,10 @@ echo;echo;
 
 # Oh-my-zsh
 source ~/dotfiles/zsh/setup.sh
+echo;echo;
+
+# Powerline fonts
+source ~/dotfiles/fonts/setup.sh
 echo;echo;
 
 echo_green 'Your setup is about to finish!'
