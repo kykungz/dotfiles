@@ -1,9 +1,7 @@
-alias text="open -e"
 alias ohmyzsh="open ~/.oh-my-zsh"
 alias config="mate ~/.zshrc"
 alias reload="source ~/.zshrc"
 alias crp="_create_new_repo"
-alias gu="_git_update"
 alias ignore="_create_gitignore"
 alias c="_compile_and_run_c"
 alias myip="_myip"
@@ -14,9 +12,5 @@ alias for-printing="
 	git -C ~/Desktop/for-printing add -A;
 	git -C ~/Desktop/for-printing commit -m 'Upload';
 	git -C ~/Desktop/for-printing push origin master;
-"
-alias run="
-	ant -f ~/Developer/OOP2/guessing-game/build-game.xml;
-	cd bin; java Main; cd ..;
 "
 alias checkport="_checkport"

@@ -9,28 +9,8 @@ _checkport() {
 	else
 		lsof -P -n -iTCP -sTCP:LISTEN		
 	fi
-	
-	
 }
 
-# _git_update [MESSAGE] [BRANCH]
-#
-# Author: Kongpon Charanwattanakit
-#
-# Invoke necessary commands to push files to GitHub repository.
-_git_update() {
-	if [ "$1" ]; then # message passed
-		git add -A
-		git commit -m "$1"
-		if [ "$2" ]; then # branch passed
-			git push origin "$2"
-		else
-			git push origin master
-		fi
-	else
-		echo "Error: Please specify commit message"
-	fi
-}
 
 # _create_new_repo
 #
