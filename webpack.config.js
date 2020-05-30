@@ -4,6 +4,9 @@ module.exports = {
   entry: './src/chooser.js',
   mode: 'production',
   target: 'node',
+  node: {
+    __dirname: false,
+  },
   module: {
     rules: [
       {
