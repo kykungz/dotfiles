@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "babel-node src/chooser.js",
     "start": "yarn dev",
-    "build": "webpack && cp install.sh dist",
+    "build": "webpack && cp install.sh dist && cp -R configs dist",
     "postinstall": "patch-package",
     "deploy": "node scripts/deploy"
   },

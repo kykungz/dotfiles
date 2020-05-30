@@ -37,19 +37,19 @@ export default {
           new Observable((observer) => {
             observer.next('Merging configurations')
             const base = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-base'))
+              .readFileSync(path.join(__dirname, 'configs/.zshrc-base'))
               .toString()
 
             const aliases = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-aliases'))
+              .readFileSync(path.join(__dirname, 'configs/.zshrc-aliases'))
               .toString()
 
             const functions = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-functions'))
+              .readFileSync(path.join(__dirname, 'configs/.zshrc-functions'))
               .toString()
 
             const scripts = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-scripts'))
+              .readFileSync(path.join(__dirname, 'configs/.zshrc-scripts'))
               .toString()
 
             fs.writeFileSync(
@@ -63,7 +63,7 @@ export default {
       {
         title: 'Installing oh-my-zsh Themes',
         task: () => {
-          const source = path.join(__dirname, '../../configs/themes')
+          const source = path.join(__dirname, 'configs/themes')
           return execute(`cp -R -f ${source} ~/.oh-my-zsh/custom`)
         },
       },
@@ -106,7 +106,7 @@ export default {
         task: () => {
           const source = path.join(
             __dirname,
-            '../../configs/com.apple.Terminal.plist',
+            'configs/com.apple.Terminal.plist',
           )
           return execute(
             `cp -R -f ${source} ~/Library/Preferences && defaults read ~/Library/Preferences/com.apple.Terminal.plist`,
