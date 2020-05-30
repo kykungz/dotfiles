@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import chalk from 'chalk'
 import consola from 'consola'
+import os from 'os'
 
 import init from './installers/init'
 import brew from './installers/brew'
@@ -24,7 +25,7 @@ export default {
       await tasks.run()
     } catch (err) {
       const errors = err.errors.map((e) => e.message)
-      const errorsPath = path.join(__dirname, 'dotfiles-error.log')
+      const errorsPath = path.join(os.homedir(), 'Desktop/dotfiles-error.log')
 
       if (errors.length > 0) {
         fs.writeFileSync(
