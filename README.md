@@ -5,6 +5,8 @@ to a new macOS environment. All the setups are based on
 [Kongpon's](https://github.com/kykungz) preferences, and might not be most
 people's favorite. Think carefully before running the scripts.
 
+![demo](./images/demo.gif)
+
 ## ⚠️ Warning
 
 **DO NOT** run the setup snippet if you don't fully understand what it does. It
