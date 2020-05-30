@@ -9,8 +9,7 @@ import execa from 'execa'
 import execute from '../utils/execute'
 import fonts from './fonts'
 import answers from '../utils/answers'
-
-const pathPrefix = process.env.NODE_ENV === 'production' ? '' : '../../'
+import pathPrefix from '../utils/pathPrefix'
 
 export default {
   title: chalk.bold('Z Shell'),

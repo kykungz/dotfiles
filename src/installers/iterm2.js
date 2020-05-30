@@ -5,9 +5,11 @@ import chalk from 'chalk'
 import execute from '../utils/execute'
 import answers from '../utils/answers'
 import delay from '../utils/delay'
+import pathPrefix from '../utils/pathPrefix'
 
 const settingPath = path.join(
   __dirname,
+  pathPrefix,
   '../configs/com.googlecode.iterm2.plist',
 )
 
