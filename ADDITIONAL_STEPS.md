@@ -9,6 +9,14 @@ automation scripts. So you need to install it manually.
 
 ## Preferences
 
+#### Turn on Show Bluetooth in menu bar
+
+> System Preferences... → Bluetooth → Show Bluetooth in menu bar
+
+#### Turn on Show volume in menu bar
+
+> System Preferences... → Sound → Show volume in menu bar
+
 #### Change Trackpad's Tracking speed to 8
 
 > System Preferences... → Trackpad → Tracking Speed
