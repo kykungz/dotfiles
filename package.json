@@ -1,0 +1,31 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "dev": "babel-node src/chooser.js",
+    "start": "yarn dev",
+    "build": "webpack",
+    "postinstall": "patch-package",
+    "deploy": "node scripts/deploy"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "consola": "^2.12.2",
+    "eslint": "^7.1.0",
+    "execa": "^4.0.2",
+    "inquirer": "^7.1.0",
+    "listr": "^0.14.3",
+    "ncp": "^2.0.0",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
+    "zen-observable": "^0.8.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
