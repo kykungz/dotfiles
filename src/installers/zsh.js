@@ -10,6 +10,8 @@ import execute from '../utils/execute'
 import fonts from './fonts'
 import answers from '../utils/answers'
 
+const pathPrefix = process.env.NODE_ENV === 'production' ? '' : '../../'
+
 export default {
   title: chalk.bold('Z Shell'),
   skip: () => !answers.get().zsh,
@@ -37,19 +39,27 @@ export default {
           new Observable((observer) => {
             observer.next('Merging configurations')
             const base = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-base'))
+              .readFileSync(
+                path.join(__dirname, pathPrefix, 'configs/.zshrc-base'),
+              )
               .toString()
 
             const aliases = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-aliases'))
+              .readFileSync(
+                path.join(__dirname, pathPrefix, 'configs/.zshrc-aliases'),
+              )
               .toString()
 
             const functions = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-functions'))
+              .readFileSync(
+                path.join(__dirname, pathPrefix, 'configs/.zshrc-functions'),
+              )
               .toString()
 
             const scripts = fs
-              .readFileSync(path.join(__dirname, '../../configs/.zshrc-scripts'))
+              .readFileSync(
+                path.join(__dirname, pathPrefix, 'configs/.zshrc-scripts'),
+              )
               .toString()
 
             fs.writeFileSync(
@@ -63,7 +73,7 @@ export default {
       {
         title: 'Installing oh-my-zsh Themes',
         task: () => {
-          const source = path.join(__dirname, '../../configs/themes')
+          const source = path.join(__dirname, pathPrefix, 'configs/themes')
           return execute(`cp -R -f ${source} ~/.oh-my-zsh/custom`)
         },
       },
@@ -106,7 +116,8 @@ export default {
         task: () => {
           const source = path.join(
             __dirname,
-            '../../configs/com.apple.Terminal.plist',
+            pathPrefix,
+            'configs/com.apple.Terminal.plist',
           )
           return execute(
             `cp -R -f ${source} ~/Library/Preferences && defaults read ~/Library/Preferences/com.apple.Terminal.plist`,
