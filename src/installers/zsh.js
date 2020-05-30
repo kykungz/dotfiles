@@ -1,4 +1,4 @@
-import { Observable } from 'zen-observable'
+import Observable from 'zen-observable'
 import { ncp } from 'ncp'
 import Listr from 'listr'
 import path from 'path'
