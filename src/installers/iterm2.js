@@ -4,6 +4,7 @@ import chalk from 'chalk'
 
 import execute from '../utils/execute'
 import answers from '../utils/answers'
+import delay from '../utils/delay'
 
 const settingPath = path.join(
   __dirname,
@@ -20,8 +21,15 @@ export default {
         task: () => execute(`brew cask install iterm2`),
       },
       {
+        title: `Initializing ${chalk.cyan.bold('iterm2')} settings`,
+        task: () => execute(`open -a "iTerm"`),
+      },
+      {
         title: `Importing ${chalk.cyan.bold('iterm2')} settings`,
-        task: () => execute(`cp -f ${settingPath} ~/Library/Preferences/`),
+        task: async () => {
+          await delay(3000)
+          return execute(`cp -f ${settingPath} ~/Library/Preferences/`)
+        },
       },
     ]),
 }

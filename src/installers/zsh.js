@@ -109,7 +109,7 @@ export default {
       },
       {
         title: 'Apply macOS Catalina fixes',
-        task: () => execute('compaudit | xargs chmod g-w'),
+        task: () => execute('compaudit | xargs chmod g-w,o-w'),
       },
       {
         title: `Apply ${chalk.cyan.bold('Terminal')} settings`,
