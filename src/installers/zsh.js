@@ -113,13 +113,14 @@ export default {
       {
         title: `Apply ${chalk.cyan.bold('Terminal')} settings`,
         task: () => {
-          const source = path.join(
+          const plistPath = path.join(
             __dirname,
             pathPrefix,
             'configs/com.apple.Terminal.plist',
           )
+
           return execute(
-            `cp -R -f ${source} ~/Library/Preferences && defaults read ~/Library/Preferences/com.apple.Terminal.plist`,
+            `cp -f ${plistPath} ~/Library/Preferences/ && defaults read ~/Library/Preferences/com.apple.Terminal.plist`,
           )
         },
       },

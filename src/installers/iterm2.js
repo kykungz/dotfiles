@@ -19,13 +19,13 @@ export default {
       {
         title: `Importing ${chalk.cyan.bold('iterm2')} settings`,
         task: async () => {
-          const settingPath = path.join(
+          const plistPath = path.join(
             __dirname,
             pathPrefix,
             'configs/com.googlecode.iterm2.plist',
           )
 
-          return execute(`cp -f ${settingPath} ~/Library/Preferences/`)
+          return execute(`cp -f ${plistPath} ~/Library/Preferences/`)
         },
       },
     ]),
