@@ -1,5 +1,4 @@
 import Observable from 'zen-observable'
-import { ncp } from 'ncp'
 import Listr from 'listr'
 import path from 'path'
 import chalk from 'chalk'
@@ -63,14 +62,10 @@ export default {
       },
       {
         title: 'Installing oh-my-zsh Themes',
-        task: () =>
-          new Promise((resolve, reject) => {
-            ncp(
-              path.join(__dirname, '../configs/themes'),
-              path.join(os.homedir(), '.oh-my-zsh/custom'),
-              (err) => (err ? reject(err) : resolve()),
-            )
-          }),
+        task: () => {
+          const source = path.join(__dirname, '../configs/themes')
+          return execute(`cp -R -f ${source} ~/.oh-my-zsh/custom`)
+        },
       },
       {
         title: 'Installing oh-my-zsh Plugins',
@@ -108,25 +103,15 @@ export default {
       },
       {
         title: `Apply ${chalk.cyan.bold('Terminal')} settings`,
-        task: () =>
-          new Promise((resolve, reject) => {
-            ncp(
-              path.join(__dirname, '../configs/com.apple.Terminal.plist'),
-              path.join(os.homedir(), 'Library/Preferences'),
-              async (err) => {
-                if (err) {
-                  reject(err)
-                }
-                execa
-                  .command(
-                    'defaults read ~/Library/Preferences/com.apple.Terminal.plist',
-                    { shell: true },
-                  )
-                  .then(resolve)
-                  .catch(reject)
-              },
-            )
-          }),
+        task: () => {
+          const source = path.join(
+            __dirname,
+            '../configs/com.apple.Terminal.plist',
+          )
+          return execute(
+            `cp -R -f ${source} ~/Library/Preferences && defaults read ~/Library/Preferences/com.apple.Terminal.plist`,
+          )
+        },
       },
       { ...fonts, title: 'Installing fonts' },
     ])
