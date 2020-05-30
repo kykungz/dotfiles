@@ -76,4 +76,4 @@ else
   echo_green "Yarn is already installed"
 fi
 
-node dist/dotfiles.js
+node dotfiles.js
