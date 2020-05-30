@@ -5,7 +5,7 @@ automation scripts. So you need to install it manually.
 
 ## App Store
 
-- [LINE](macappstore://itunes.apple.com/app/id539883307?mt=12)
+- LINE
 
 ## Preferences
 
@@ -34,19 +34,10 @@ automation scripts. So you need to install it manually.
 > System Preferences... → Keyboard → Shortcuts → Spotlight → Disable Show
 > Spotlight search
 
-#### Disable Mission Control shortcuts (which is using _F11_ and _F12_)
-
-> System Preferences... → Keyboard → Shortcuts → Mission Control → Disable Show
-> Desktop & Show Dashboard
-
 #### Change _Input Sources_ shortcut to (Command (⌘) + Space)
 
 > System Preferences... → Keyboard → Shortcuts → Input Sources → Change _Select
 > the previous input source_ shortcut to **Command (⌘) + Space**
-
-#### Change Touchbar in Eclipse to normal Function Keys
-
-> System Preferences... → Keyboard → Shortcuts → Function Keys → Add(+) Eclipse
 
 #### Change _Terminal_ shell to /bin/bash
 

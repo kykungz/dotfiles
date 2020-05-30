@@ -11,6 +11,10 @@ export default {
         title: 'Updating Homebrew',
         task: () => execute('brew update'),
       },
+      {
+        title: 'Creating ~/Developer directory',
+        task: () => execute('mkdir ~/Developer'),
+      },
     ])
   },
 }
