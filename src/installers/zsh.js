@@ -10,7 +10,6 @@ import execa from 'execa'
 import execute from '../utils/execute'
 import fonts from './fonts'
 import answers from '../utils/answers'
-import delay from '../utils/delay'
 
 export default {
   title: chalk.bold('Z Shell'),
@@ -20,20 +19,17 @@ export default {
       {
         title: `Installing ${chalk.cyan.bold('Oh My Zsh')}`,
         task: (_, task) =>
-          new Observable(async (observer) => {
-            observer.next('Downloading...')
-            await delay(600)
-            observer.complete()
-            // const process = execa.command(
-            //   `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`,
-            //   { shell: true },
-            // )
+          new Observable((observer) => {
+            const process = execa.command(
+              `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`,
+              { shell: true },
+            )
 
-            // process.stdout
-            //   .on('data', (chunk) => observer.next(chunk.toString()))
-            //   .on('close', () => observer.complete())
+            process.stdout
+              .on('data', (chunk) => observer.next(chunk.toString()))
+              .on('close', () => observer.complete())
 
-            // process.catch(() => task.skip('Oh My Zsh is already installed'))
+            process.catch(() => task.skip('Oh My Zsh is already installed'))
           }),
       },
       {
