@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "ts-node src/chooser.ts",
     "start": "yarn dev",
-    "build": "webpack && cp install.sh dist && cp -R configs dist",
+    "build": "webpack && cp install.sh dist && cp .gitignore dist && cp -R configs dist",
     "postinstall": "patch-package",
     "deploy": "node scripts/deploy"
   },
