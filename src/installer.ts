@@ -19,12 +19,13 @@ export default {
   start: async () => {
     try {
       const tasks = new Listr([init, brew, yarn, zsh, iterm2, cask, gem], {
+        // @ts-ignore
         collapse: false,
         exitOnError: false,
       })
       await tasks.run()
     } catch (err) {
-      const errors = err.errors.map((e) => e.message)
+      const errors = err.errors.map((e: Error) => e.message)
       const errorsPath = path.join(os.homedir(), 'Desktop/dotfiles-error.log')
 
       if (errors.length > 0) {

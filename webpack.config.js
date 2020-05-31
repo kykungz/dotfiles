@@ -1,25 +1,17 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/chooser.js',
+  entry: './src/chooser.ts',
   mode: 'production',
   target: 'node',
   node: {
     __dirname: false,
   },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-    ],
+    rules: [{ test: /\.ts$/, loader: 'ts-loader', exclude: /node_modules/ }],
   },
   output: {
     filename: 'dotfiles.js',

@@ -1,8 +1,8 @@
-import Observable from 'zen-observable'
+import { Observable } from 'rxjs'
 import execa from 'execa'
 
-export default (command) => {
-  return new Observable((observer) => {
+export default (command: string) => {
+  return new Observable<any>((observer) => {
     const process = execa.command(command, { shell: true })
 
     process.stdout

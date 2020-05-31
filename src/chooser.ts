@@ -84,7 +84,7 @@ const start = async () => {
   console.log()
   consola.info('Starting your installations...\n')
 
-  answers.set(promptAnswers)
+  answers.values = promptAnswers
 
   await installer.start()
 }

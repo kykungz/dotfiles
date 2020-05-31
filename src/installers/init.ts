@@ -1,9 +1,9 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Initialize'),
   task: () => {
     return new Listr([
@@ -18,3 +18,5 @@ export default {
     ])
   },
 }
+
+export default task

@@ -1,5 +1,5 @@
-import Observable from 'zen-observable'
-import Listr from 'listr'
+import { Observable } from 'rxjs'
+import Listr, { ListrTask } from 'listr'
 import path from 'path'
 import chalk from 'chalk'
 import fs from 'fs'
@@ -11,9 +11,9 @@ import fonts from './fonts'
 import answers from '../utils/answers'
 import pathPrefix from '../utils/pathPrefix'
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Z Shell'),
-  skip: () => !answers.get().zsh,
+  skip: () => !answers.values.zsh,
   task: () => {
     return new Listr([
       {
@@ -128,3 +128,5 @@ export default {
     ])
   },
 }
+
+export default task

@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
@@ -6,20 +6,22 @@ import answers from '../utils/answers'
 
 export const gems = ['iStats']
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Gems'),
-  skip: () => answers.get().gem.length <= 0,
+  skip: () => answers.values.gem.length <= 0,
   task: () => {
-    const gems = answers.get().gem
+    const gems = answers.values.gem
 
     return new Listr(
       gems.map((name) => ({
         title: `Installing ${chalk.cyan.bold(name)}`,
         task: () =>
           execute(
-            `echo "${answers.get().password}" | sudo -S gem install ${name}`,
+            `echo "${answers.values.password}" | sudo -S gem install ${name}`,
           ),
       })),
     )
   },
 }
+
+export default task

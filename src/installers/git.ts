@@ -7,7 +7,7 @@ import answers from '../utils/answers'
 
 export default {
   setup: async () => {
-    if (!answers.get().git) return
+    if (!answers.values.git) return
 
     console.log('\n')
 
@@ -51,6 +51,7 @@ export default {
         },
       ],
       {
+        // @ts-ignore
         collapse: false,
         exitOnError: false,
       },

@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
@@ -16,11 +16,11 @@ export const formulas = [
   'httpie',
 ]
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Homebrew formulas'),
-  skip: () => answers.get().brew.length <= 0,
+  skip: () => answers.values.brew.length <= 0,
   task: () => {
-    const formulas = answers.get().brew
+    const formulas = answers.values.brew
 
     return new Listr([
       {
@@ -35,3 +35,5 @@ export default {
     ])
   },
 }
+
+export default task

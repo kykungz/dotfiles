@@ -1,15 +1,14 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import path from 'path'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
 import answers from '../utils/answers'
-import delay from '../utils/delay'
 import pathPrefix from '../utils/pathPrefix'
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('iTerm2'),
-  skip: () => !answers.get().iterm2,
+  skip: () => !answers.values.iterm2,
   task: () =>
     new Listr([
       {
@@ -30,3 +29,5 @@ export default {
       },
     ]),
 }
+
+export default task

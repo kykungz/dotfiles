@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
@@ -6,11 +6,11 @@ import answers from '../utils/answers'
 
 export const packages = ['gitmoji-cli', 'serve', 'tldr', 'n', 'tree']
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Yarn packages'),
-  skip: () => answers.get().yarn.length <= 0,
+  skip: () => answers.values.yarn.length <= 0,
   task: () => {
-    const packages = answers.get().yarn
+    const packages = answers.values.yarn
 
     return new Listr(
       packages.map((name) => ({
@@ -20,3 +20,4 @@ export default {
     )
   },
 }
+export default task

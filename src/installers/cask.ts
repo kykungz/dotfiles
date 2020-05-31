@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import chalk from 'chalk'
 
 import execute from '../utils/execute'
@@ -24,11 +24,11 @@ export const casks = [
   'discord',
 ]
 
-export default {
+const task: ListrTask = {
   title: chalk.bold('Applications'),
-  skip: () => answers.get().cask.length <= 0,
+  skip: () => answers.values.cask.length <= 0,
   task: () => {
-    const casks = answers.get().cask
+    const casks = answers.values.cask
 
     return new Listr(
       casks.map((name) => ({
@@ -41,3 +41,5 @@ export default {
     )
   },
 }
+
+export default task
