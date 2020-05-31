@@ -6,6 +6,7 @@ automation scripts. So you need to install it manually.
 ## App Store
 
 - LINE
+- iStat Menus
 
 ## Preferences
 
