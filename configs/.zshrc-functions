@@ -40,7 +40,7 @@ _create_new_repo() {
 	git init
 	git add -A
 	git commit -m ":tada: Initial commit"
-	hub create
+	hub create "$@"
 	git push -u origin master
 }
 
