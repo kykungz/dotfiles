@@ -13,7 +13,7 @@ const task: ListrTask = {
     new Listr([
       {
         title: `Installing ${chalk.cyan.bold('iterm2')}`,
-        task: () => execute(`brew cask install iterm2`),
+        task: () => execute(`brew install --cask iterm2`),
       },
       {
         title: `Importing ${chalk.cyan.bold('iterm2')} settings`,
