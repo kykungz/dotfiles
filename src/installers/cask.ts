@@ -33,7 +33,7 @@ const task: ListrTask = {
     return new Listr(
       casks.map((name) => ({
         title: `Installing ${chalk.cyan.bold(name)}`,
-        task: () => execute(`brew cask install ${name}`),
+        task: () => execute(`brew install --cask ${name}`),
       })),
       {
         concurrent: 5,
