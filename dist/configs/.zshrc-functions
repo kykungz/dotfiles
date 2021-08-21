@@ -1,0 +1,95 @@
+# _checkport [PORT]
+#
+# Author: Kongpon Charanwattanakit
+#
+# Check for port availability
+_checkport() {
+	if [ "$1" ]; then
+		lsof -P -n -iTCP -sTCP:LISTEN | grep $1
+	else
+		lsof -P -n -iTCP -sTCP:LISTEN
+	fi
+}
+
+# _create_new_repo
+#
+# Author: Kongpon Charanwattanakit
+#
+# Creating new GitHub repository on current directory.
+# Specify TYPE to automatically create .gitignore file from gitignore.io.
+_create_new_repo() {
+	GREEN='\033[0;32m'
+	GREY='\e[37m'
+	BOLD='\033[1m'
+	NC='\033[0m' # Reset (No Color)
+
+	# prompt for gitignore file
+	echo -n "\n${GREEN}?${NC} ${BOLD}.gitignore file type${NC} ${GREY}(enter to skip)${NC} "
+	read answer
+	# check if argument is passed
+	if [ "$answer" ]; then
+		if [ "$answer" = "." ]; then
+			echo "Creating default .gitignore file..."
+			echo '.DS_Store\n.*\n!.gitignore' >.gitignore
+		else
+			echo "Creating .gitignore file from gitignore.io..."
+			gi "$answer" >.gitignore
+		fi
+		cat .gitignore
+	fi
+	git init
+	git add -A
+	git commit -m ":tada: Initial commit"
+	hub create "$@"
+	git push -u origin master
+}
+
+# _create_gitignore
+#
+# Author: Kongpon Charanwattanakit
+#
+# Creating new .gitignore on current directory.
+# Specify TYPE to automatically create .gitignore file from gitignore.io.
+_create_gitignore() {
+	# check if argument is passed
+	if [ "$1" ]; then
+		if [ "$1" = "." ]; then
+			echo "Creating default .gitignore file..."
+			echo '.DS_Store\n.*\n!.gitignore' >.gitignore
+		else
+			echo "Creating .gitignore file from gitignore.io..."
+			gi "$1" >.gitignore
+		fi
+	else
+		echo "Creating default .gitignore file..."
+		echo '.DS_Store\n.*\n!.gitignore' >.gitignore
+	fi
+	cat .gitignore
+}
+
+# _myip
+#
+# Author: Kongpon Charanwattanakit
+#
+# Display information about my ip address.
+_myip() {
+	echo '   'local ip: $(ipconfig getifaddr en0) | grep 'local ip'
+	route get default | grep gateway
+	echo '  'public ip: $(curl -s ipecho.net/plain) | grep 'public ip'
+}
+
+#
+# Author: Kongpon Charanwattanakit
+#
+# Connect to iPad with Sidecar.
+_sidecar() {
+	osascript -e '
+	tell application "System Events"
+		tell process "SystemUIServer"
+			click (menu bar item 1 of menu bar 1 whose description contains "Displays")
+			set displaymenu to menu 1 of result
+			-- Tolerate numbers in brackets after the tv name --
+			click ((menu item 1 where its name contains "iPad") of displaymenu)
+		end tell
+	end tell'
+}
