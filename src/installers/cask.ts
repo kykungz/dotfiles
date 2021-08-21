@@ -9,7 +9,7 @@ export const casks = [
   'google-cloud-sdk',
   'textmate',
   'ngrok',
-  'sequel-pro',
+  'sequel-ace',
   'sourcetree',
   'postman',
   'docker',
@@ -22,6 +22,8 @@ export const casks = [
   'spotify',
   'slack',
   'discord',
+  'telegram',
+  'tableplus',
 ]
 
 const task: ListrTask = {

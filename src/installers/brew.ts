@@ -10,10 +10,11 @@ export const formulas = [
   'git',
   'ccat',
   'z',
-  'hub',
+  'gh',
   'mas',
   'inetutils',
   'httpie',
+  'gitmoji',
 ]
 
 const task: ListrTask = {
