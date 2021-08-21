@@ -49,7 +49,7 @@ fi
 if ! [ -x "$(command -v brew)" ]; then
   echo_red "Homebrew not found."
   echo_green "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" </dev/null
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   brew update >/dev/null
   echo_green "Done installing Homebrew"
 else
