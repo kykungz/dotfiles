@@ -13,12 +13,11 @@ import zsh from './installers/zsh'
 import iterm2 from './installers/iterm2'
 import cask from './installers/cask'
 import git from './installers/git'
-import gem from './installers/gem'
 
 export default {
   start: async () => {
     try {
-      const tasks = new Listr([init, brew, yarn, zsh, iterm2, cask, gem], {
+      const tasks = new Listr([init, brew, yarn, zsh, iterm2, cask], {
         // @ts-ignore
         collapse: false,
         exitOnError: false,

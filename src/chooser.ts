@@ -5,7 +5,6 @@ import consola from 'consola'
 import { formulas } from './installers/brew'
 import { packages } from './installers/yarn'
 import { casks } from './installers/cask'
-import { gems } from './installers/gem'
 import installer from './installer'
 import answers from './utils/answers'
 
@@ -56,17 +55,6 @@ const start = async () => {
       choices: casks.map((cask) => ({
         name: chalk.cyan.bold(cask),
         value: cask,
-        checked: true,
-      })),
-    },
-    {
-      name: 'gem',
-      type: 'checkbox',
-      pageSize: gems.length,
-      message: `Select ${chalk.green('Gems')}:`, // prettier-ignore
-      choices: gems.map((gem) => ({
-        name: chalk.cyan.bold(gem),
-        value: gem,
         checked: true,
       })),
     },
