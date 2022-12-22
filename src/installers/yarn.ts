@@ -4,7 +4,7 @@ import chalk from 'chalk'
 import execute from '../utils/execute'
 import answers from '../utils/answers'
 
-export const packages = ['serve', 'tldr', 'n', 'tree']
+export const packages = ['serve', 'tldr', 'n', 'tree', 'commitizen', 'git-cz']
 
 const task: ListrTask = {
   title: chalk.bold('Yarn packages'),
