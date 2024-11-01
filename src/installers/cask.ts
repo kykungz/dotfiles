@@ -18,7 +18,7 @@ export const casks = [
   'vlc',
   'betterzip',
   'imageoptim',
-  'spectacle',
+  'rectangle',
   'spotify',
   'slack',
   'discord',
