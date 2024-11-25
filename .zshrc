@@ -120,6 +120,8 @@ alias for-printing="
 	git -C ~/Desktop/for-printing commit -m 'Upload';
 	git -C ~/Desktop/for-printing push origin master;
 "
+alias pn="pnpm"
+
 function myip {
   echo '   'local ip: $(ipconfig getifaddr en0) | grep 'local ip'
   route get default | grep gateway
@@ -132,6 +134,41 @@ function checkport {
     lsof -P -n -iTCP -sTCP:LISTEN
   fi
 }
+function cpr() {
+  # Get the current git branch name
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+  # Use Node.js to transform the branch name into the required PR title format
+  title=$(node -e "
+    const branch = '$branch_name';
+    const [prefix, ...rest] = branch.split('-');
+    const number = rest.shift();
+    const title = rest.join(' ').toLowerCase();
+    const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+    console.log(\`\${prefix.toUpperCase()}-\${number}: \${formattedTitle}\`);
+  ")
+
+  # Build the gh pr create command
+  gh_command="gh pr create \
+    --title \"$title\" \
+    --template \"pull_request_template.md\" \
+    $@
+  "
+
+  # Execute the gh pr create command with optional overrides
+  eval $gh_command
+}
+
+# Changes hex 0x15 to delete everything to the left of the cursor, rather than the whole line
+bindkey "^U" backward-kill-line
+
+# pnpm
+export PNPM_HOME="/Users/kongpon/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
