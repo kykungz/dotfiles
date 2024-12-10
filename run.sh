@@ -5,7 +5,7 @@
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile
 
 # CLIs
-brew install git gh wget ccat httpie
+brew install git gh wget ccat httpie eza
 
 # Casks
 brew install --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code iterm2
