@@ -15,7 +15,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # Powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-cp ./p10k.zsh $HOME/
+cp ./.p10k.zsh $HOME/
 
 # iTerm2
 cp ./com.googlecode.iterm2.plist $HOME/Library/Preferences/
+
+# ZSH
+cp ./.zshrc $HOME/
