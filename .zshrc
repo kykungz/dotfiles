@@ -1,3 +1,4 @@
+# https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#how-do-i-initialize-direnv-when-using-instant-prompt
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -124,6 +125,7 @@ alias for-printing="
 	git -C ~/Desktop/for-printing commit -m 'Upload';
 	git -C ~/Desktop/for-printing push origin master;
 "
+alias p="pnpm"
 alias pn="pnpm"
 alias ls="eza --icons"
 
@@ -139,43 +141,23 @@ function checkport {
     lsof -P -n -iTCP -sTCP:LISTEN
   fi
 }
-function cpr() {
-  # Get the current git branch name
-  branch_name=$(git rev-parse --abbrev-ref HEAD)
-
-  # Use Node.js to transform the branch name into the required PR title format
-  title=$(node -e "
-    const branch = '$branch_name';
-    const [prefix, ...rest] = branch.split('-');
-    const number = rest.shift();
-    const title = rest.join(' ').toLowerCase();
-    const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1);
-    console.log(\`\${prefix.toUpperCase()}-\${number}: \${formattedTitle}\`);
-  ")
-
-  # Build the gh pr create command
-  gh_command="gh pr create \
-    --title \"$title\" \
-    --template \"pull_request_template.md\" \
-    $@
-  "
-
-  # Execute the gh pr create command with optional overrides
-  eval $gh_command
-}
 
 # Changes hex 0x15 to delete everything to the left of the cursor, rather than the whole line
 bindkey "^U" backward-kill-line
 
 # pnpm
-export PNPM_HOME="/Users/kongpon/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 
+# rustup
 . "$HOME/.cargo/env"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

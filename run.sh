@@ -8,7 +8,7 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile
 brew install git gh wget ccat httpie eza
 
 # Casks
-brew install --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code iterm2
+brew install --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code
 
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
