@@ -33,3 +33,6 @@ cp ./com.googlecode.iterm2.plist $HOME/Library/Preferences/;
 
 # ZSH
 cp ./.zshrc $HOME/;
+
+# Set Terminal default shell to Bash
+defaults write com.apple.Terminal Shell "/bin/sh";
