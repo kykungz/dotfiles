@@ -5,10 +5,10 @@
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile;
 
 # Formulae
-brew install git gh wget ccat httpie eza direnv;
+brew install git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun;
 
 # Casks
-brew install --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code;
+brew install --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt;
 
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
@@ -36,3 +36,62 @@ cp ./.zshrc $HOME/;
 
 # Set Terminal default shell to Bash
 defaults write com.apple.Terminal Shell "/bin/sh";
+
+# Set TextMate theme to dark
+defaults write com.macromates.TextMate themeAppearance -string "dark";
+
+# Set ChatGPT keyboard shortcut to Ctrl+A
+defaults write com.openai.chat.plist "KeyboardShortcuts_toggleLauncher" -string '{"carbonKeyCode":0,"carbonModifiers":4096}'
+
+# If the plist doesn't exist or is empty, create the basic structure
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Previous input source → Cmd+Space
+/usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:60" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60 dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:enabled bool true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value:parameters:0 integer 32" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value:parameters:1 integer 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value:parameters:2 integer 1048576" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:60:value:type string standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Next input source → disabled
+/usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:61" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61 dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:enabled bool false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value:parameters:0 integer 32" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value:parameters:1 integer 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value:parameters:2 integer 786432" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:61:value:type string standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Spotlight → Option+Space
+/usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:64" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64 dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:enabled bool true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:0 integer 32" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:1 integer 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:parameters:2 integer 524288" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:64:value:type string standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Finder search → disabled
+/usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:65" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65 dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:enabled bool false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value:parameters:0 integer 32" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value:parameters:1 integer 49" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value:parameters:2 integer 1572864" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:65:value:type string standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Change Caps Lock (⇪) key to Control (⌃) key
+/usr/libexec/PlistBuddy -c 'Delete com.apple.keyboard.modifiermapping.0-0-0' ~/Library/Preferences/ByHost/.GlobalPreferences.*.plist
+/usr/libexec/PlistBuddy -c 'Add com.apple.keyboard.modifiermapping.0-0-0 array' ~/Library/Preferences/ByHost/.GlobalPreferences.*.plist
+/usr/libexec/PlistBuddy -c 'Add com.apple.keyboard.modifiermapping.0-0-0:0:HIDKeyboardModifierMappingSrc integer 30064771129' ~/Library/Preferences/ByHost/.GlobalPreferences.*.plist
+/usr/libexec/PlistBuddy -c 'Add com.apple.keyboard.modifiermapping.0-0-0:0:HIDKeyboardModifierMappingDst integer 30064771300' ~/Library/Preferences/ByHost/.GlobalPreferences.*.plist

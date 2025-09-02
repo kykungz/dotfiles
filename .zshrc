@@ -141,78 +141,21 @@ function checkport {
     lsof -P -n -iTCP -sTCP:LISTEN
   fi
 }
-function cpr() {
-  # Get the current git branch name
-  branch_name=$(git rev-parse --abbrev-ref HEAD)
-  
-  # Extract Linear issue ID using Node.js (e.g., "super-4862-abcdef" -> "SUPER-4862")
-  issue_id=$(node -e "
-    const branch = '$branch_name';
-    const match = branch.match(/^([a-zA-Z]+)-(\d+)/);
-    if (match) {
-      console.log(\`\${match[1].toUpperCase()}-\${match[2]}\`);
-    } else {
-      console.error('Branch name format not recognized. Expected format: prefix-number-description');
-      process.exit(1);
-    }
-  ")
+function cpr {
+  # Fetch source code from gist https://gist.github.com/kykungz/2af9792cf31f36e645f0e85895e4f2b2
+  local output=$(bun -e "$(curl -s https://gist.githubusercontent.com/kykungz/2af9792cf31f36e645f0e85895e4f2b2/raw/cpr.ts)")
 
-  # Check if issue ID extraction was successful
-  if [[ $? -ne 0 ]]; then
-    echo "Current branch: $branch_name"
+  # Validate that we have title and body
+  local title=$(echo -E "$output" | jq -r '.title // empty' 2>/dev/null)
+  local body=$(echo -E "$output" | jq -r '.body // empty' 2>/dev/null)
+
+  if [[ -z "$title" ]] || [[ -z "$body" ]]; then
+    echo -e "\nFailed to create a Pull Request"
     return 1
   fi
 
-  # Check if Linear API key file exists
-  if [[ ! -f ~/.linear ]]; then
-    echo "Error: Linear API key not found at ~/.linear"
-    echo "Please create ~/.linear file with your Linear API key"
-    return 1
-  fi
-
-  # Read Linear API key
-  linear_api_key=$(cat ~/.linear | tr -d '\n\r\t ' | head -n1)
-  
-  if [[ -z "$linear_api_key" ]]; then
-    echo "Error: Linear API key file is empty"
-    return 1
-  fi
-
-  echo "Fetching issue details for $issue_id from Linear..."
-
-  # Query Linear API for issue title
-  api_response=$(curl -s \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -H "Authorization: $linear_api_key" \
-    --data "{\"query\": \"query { issue(id: \\\"$issue_id\\\") { id title } }\"}" \
-    https://api.linear.app/graphql)
-
-  # Parse the response and extract title using jq
-  linear_title=$(echo "$api_response" | jq -r '.data.issue.title // empty')
-
-  # Check if we successfully got the title
-  if [[ -z "$linear_title" ]]; then
-    # Check for errors in the response
-    error_message=$(echo "$api_response" | jq -r '.errors[0].message // "Unknown error"')
-    echo "Failed to fetch issue title from Linear API for issue: $issue_id"
-    echo "Error: $error_message"
-    return 1
-  fi
-
-  # Format the PR title with issue ID and Linear title
-  title="$issue_id: $linear_title"
-  echo "Creating PR with title: $title"
-
-  # Build the gh pr create command
-  gh_command="gh pr create \
-    --title \"$title\" \
-    --template \"pull_request_template.md\" \
-    $@
-  "
-
-  # Execute the gh pr create command with optional overrides
-  eval $gh_command
+  # Create the PR using gh CLI, forwarding any additional arguments
+  gh pr create --title "$title" --body "$body" "$@"
 }
 
 # Changes hex 0x15 to delete everything to the left of the cursor, rather than the whole line
@@ -227,10 +170,15 @@ esac
 # pnpm end
 
 # rustup
-. "$HOME/.cargo/env"
+[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
