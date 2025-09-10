@@ -149,3 +149,12 @@ for key in 118 119 120 121 122 123 124 125; do
   /usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:$key dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist;
   /usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys:$key:enabled bool false" ~/Library/Preferences/com.apple.symbolichotkeys.plist;
 done
+
+# Finder: Show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true;
+
+# Finder: When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf";
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false;
