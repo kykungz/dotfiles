@@ -1,4 +1,4 @@
-# Kongpon C. dotfiles v3
+# Kongpon C. dotfiles
 
 A minimal macOS development environment setup script. This repository contains a single command that configures your entire development environment based on [Kongpon's](https://github.com/kykungz) preferences.
 
@@ -80,17 +80,6 @@ To backup your current configuration files:
 
 ```bash
 bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/main/update.sh)"
-```
-
-## 📁 Repository Structure
-
-```
-dotfiles/
-├── README.md                    # This file
-├── install-remote.sh            # Remote installation script
-├── install.sh                   # Main setup script
-├── update.sh                    # Configuration backup script
-└── com.googlecode.iterm2.plist # iTerm2 preferences
 ```
 
 ## 🤝 Contributing
