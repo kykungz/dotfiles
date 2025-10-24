@@ -3,6 +3,7 @@
 # Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile;
+source $HOME/.zprofile;
 
 # Formulae
 brew install git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun tree;
