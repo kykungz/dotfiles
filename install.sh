@@ -34,6 +34,9 @@ cp ./com.googlecode.iterm2.plist $HOME/Library/Preferences/;
 # ZSH
 cp ./.zshrc $HOME/;
 
+# Set Git to auto setup remote
+git config --global --type bool push.autoSetupRemote true;
+
 # Set Terminal default shell to Bash
 defaults write com.apple.Terminal Shell "/bin/sh";
 
@@ -45,9 +48,6 @@ defaults write com.openai.chat.plist "KeyboardShortcuts_toggleLauncher" -string 
 
 # If the plist doesn't exist or is empty, create the basic structure
 /usr/libexec/PlistBuddy -c "Add :AppleSymbolicHotKeys dict" ~/Library/Preferences/com.apple.symbolichotkeys.plist;
-
-# Set Git to auto setup remote
-git config --global --type bool push.autoSetupRemote true;
 
 # Previous input source → Cmd+Space
 /usr/libexec/PlistBuddy -c "Delete :AppleSymbolicHotKeys:60" ~/Library/Preferences/com.apple.symbolichotkeys.plist;
