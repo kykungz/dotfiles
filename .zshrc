@@ -167,6 +167,29 @@ function cpr {
   # Create the PR using gh CLI, forwarding any additional arguments
   gh pr create --title "$title" --body "$body" "$@"
 }
+function upr {
+  local pr_number=$(gh pr view --json "number" --jq .number)
+
+  if [[ -z "$pr_number" ]]; then
+    echo "No pull request found in the current context."
+    return 1
+  fi
+
+  # Fetch source code from gist https://gist.github.com/kykungz/2af9792cf31f36e645f0e85895e4f2b2
+  local output=$(bun -e "$(curl -s https://gist.githubusercontent.com/kykungz/2af9792cf31f36e645f0e85895e4f2b2/raw/cpr.ts)")
+
+  # Validate that we have title and body
+  local title=$(echo -E "$output" | jq -r '.title // empty' 2>/dev/null)
+  local body=$(echo -E "$output" | jq -r '.body // empty' 2>/dev/null)
+
+  if [[ -z "$title" ]] || [[ -z "$body" ]]; then
+    echo -e "\nFailed to update a Pull Request"
+    return 1
+  fi
+
+  # Update the PR using gh CLI, forwarding any additional arguments
+  gh pr edit $pr_number --title "$title" --body "$body" "$@"
+}
 
 # Changes hex 0x15 to delete everything to the left of the cursor, rather than the whole line
 bindkey "^U" backward-kill-line
