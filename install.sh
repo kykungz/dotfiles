@@ -35,6 +35,16 @@ cp ./com.googlecode.iterm2.plist $HOME/Library/Preferences/;
 # ZSH
 cp ./.zshrc $HOME/;
 
+# Reload Zsh configuration to activate plugins (e.g., zsh-nvm)
+source $HOME/.zshrc;
+
+# Set Node.js version to the latest LTS version
+nvm use node;
+
+# Install global PNPM packages and approve builds
+pnpm install -g @anthropic-ai/claude-code concurrently eslint opencommit prettier tsx typescript;
+pnpm approve-builds -g;
+
 # Set Git to auto setup remote
 git config --global --type bool push.autoSetupRemote true;
 
