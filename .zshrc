@@ -138,6 +138,7 @@ alias for-printing="
 alias p="pnpm"
 alias pn="pnpm"
 alias ls="eza --icons"
+alias kc="kubectx"
 
 function myip {
   echo '   'local ip: $(ipconfig getifaddr en0) | grep 'local ip'
