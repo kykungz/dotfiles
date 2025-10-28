@@ -48,6 +48,9 @@ pnpm approve-builds -g;
 # Set Git to auto setup remote
 git config --global --type bool push.autoSetupRemote true;
 
+# Set Git to not rebase when pulling
+git config --global --type bool pull.rebase false;
+
 # Set Terminal default shell to Bash
 defaults write com.apple.Terminal Shell "/bin/sh";
 
