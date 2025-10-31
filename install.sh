@@ -11,6 +11,13 @@ brew install --adopt git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/
 # Casks
 brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt;
 
+# Cursor extensions
+grep -v '^$' extensions.txt | xargs -n 1 cursor --install-extension --force;
+
+# Cursor settings
+cp ./keybindings.json "$HOME/Library/Application Support/Cursor/User/";
+cp ./settings.json "$HOME/Library/Application Support/Cursor/User/";
+
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
 

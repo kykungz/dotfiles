@@ -1,0 +1,159 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "cSpell.languageSettings": [
+    {
+      "includeRegExpList": [
+        "CStyleComment"
+      ],
+      "languageId": [
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact"
+      ]
+    }
+  ],
+  "codesnap.containerPadding": "1em",
+  "commentBox.styles": {
+    "defaultStyle": {
+      "bottomEdgeToken": "-",
+      "bottomLeftToken": "/* ",
+      "boxWidth": 80,
+      "capitalize": false,
+      "commentEndToken": " */",
+      "commentStartToken": "/* ",
+      "leftEdgeToken": "/* ",
+      "rightEdgeToken": " */",
+      "topEdgeToken": "-",
+      "topRightToken": " */"
+    }
+  },
+  "docker.extension.dockerEngineAvailabilityPrompt": false,
+  "docker.extension.enableComposeLanguageServer": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.accessibilitySupport": "off",
+  "editor.autoIndent": "advanced",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.dragAndDrop": false,
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.largeFileOptimizations": false,
+  "editor.occurrencesHighlight": "off",
+  "editor.renderWhitespace": "boundary",
+  "editor.scrollBeyondLastLine": false,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "emmet.includeLanguages": {
+    "ejs": "html",
+    "erb": "html",
+    "javascript": "javascriptreact",
+    "mdx": "javascriptreact",
+    "vue": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.validate": [
+    "javascriptreact",
+    "typescriptreact",
+    "typescript",
+    "javascript",
+    "html",
+    "vue"
+  ],
+  "explorer.autoRevealExclude": {
+    "**/node_modules": false
+  },
+  "explorer.compactFolders": false,
+  "files.insertFinalNewline": true,
+  "git.autofetch": true,
+  "gitlens.graph.layout": "editor",
+  "importCost.mediumPackageDarkColor": "goldenrod",
+  "importCost.mediumPackageLightColor": "goldenrod",
+  "importCost.smallPackageDarkColor": "grey",
+  "importCost.smallPackageLightColor": "grey",
+  "javascript.validate.enable": false,
+  "markdown-preview-enhanced.breakOnSingleNewLine": true,
+  "markdown-preview-github-styles.colorTheme": "dark",
+  "markdown-preview-github-styles.darkTheme": "dark_dimmed",
+  "markdown.extension.toc.updateOnSave": false,
+  "notebook.lineNumbers": "on",
+  "oneDarkPro.bold": false,
+  "oneDarkPro.vivid": true,
+  "prettier.proseWrap": "always",
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "redhat.telemetry.enabled": false,
+  "remote.SSH.enableRemoteCommand": true,
+  "security.promptForLocalFileProtocolHandling": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.fontFamily": "Inconsolata for Powerline",
+  "terminal.integrated.fontSize": 14,
+  "todohighlight.keywords": [
+    {
+      "backgroundColor": "red",
+      "color": "white",
+      "text": "HACK:"
+    }
+  ],
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.tsserver.enableTracing": true,
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "disabled"
+  },
+  "window.newWindowProfile": "Default",
+  "workbench.activityBar.orientation": "vertical",
+  "workbench.colorCustomizations": {
+    "editorBracketHighlight.foreground3": "#83bdff"
+  },
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.iconTheme": "file-icons",
+  "yaml.schemaStore.enable": false
+}

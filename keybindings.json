@@ -1,0 +1,117 @@
+/** @kykungz Custom Key Bindings */
+
+[
+  // Code Manipulation
+  {
+    "key": "shift+cmd+e",
+    "command": "editor.emmet.action.expandAbbreviation"
+  },
+  {
+    "key": "alt+cmd+down",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+cmd+up",
+    "command": "editor.action.copyLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "editor.action.insertCursorAbove",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "editor.action.insertCursorBelow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+shift+i",
+    "command": "editor.action.sourceAction",
+    "args": {
+      "kind": "source.addMissingImports",
+      "apply": "first"
+    }
+  },
+  {
+    "key": "cmd+l",
+    "command": "-composer.sendToAgent",
+    "when": "editorHasPromptBar && editorPromptBarFocused"
+  },
+  {
+    "key": "cmd+l",
+    "command": "-aichat.newchataction"
+  },
+  {
+    "key": "cmd+l",
+    "command": "expandLineSelection",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+p",
+    "command": "-expandLineSelection",
+    "when": "textInputFocus"
+  },
+
+  // Tab Navigation
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.openEditorAtIndex1"
+  },
+  {
+    "key": "cmd+2",
+    "command": "workbench.action.openEditorAtIndex2"
+  },
+  {
+    "key": "cmd+3",
+    "command": "workbench.action.openEditorAtIndex3"
+  },
+  {
+    "key": "cmd+4",
+    "command": "workbench.action.openEditorAtIndex4"
+  },
+  {
+    "key": "cmd+5",
+    "command": "workbench.action.openEditorAtIndex5"
+  },
+  {
+    "key": "cmd+6",
+    "command": "workbench.action.openEditorAtIndex6"
+  },
+  {
+    "key": "cmd+7",
+    "command": "workbench.action.openEditorAtIndex7"
+  },
+
+  // Editor Size
+  {
+    "key": "cmd+=",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "cmd+-",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "cmd+0",
+    "command": "editor.action.fontZoomReset"
+  },
+  {
+    "key": "shift+cmd+=",
+    "command": "workbench.action.zoomIn"
+  },
+  {
+    "key": "shift+cmd+-",
+    "command": "workbench.action.zoomOut"
+  },
+  {
+    "key": "shift+cmd+0",
+    "command": "workbench.action.zoomReset"
+  },
+  {
+    "key": "shift+cmd+e",
+    "command": "-workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  }
+]
