@@ -53,7 +53,7 @@ That's it! One command sets up your entire development environment.
 - **Rectangle** - Window management
 - **TablePlus** - Database client
 - **Visual Studio Code** - Code editor
-- **Cursor** - AI-powered editor
+- **Cursor** - AI-powered editor (with extensions, keybindings, and settings)
 - **ChatGPT** - AI assistant
 
 ### Shell & Terminal
@@ -63,6 +63,11 @@ That's it! One command sets up your entire development environment.
 - **zsh-autosuggestions** - Command suggestions
 - **zsh-syntax-highlighting** - Syntax highlighting
 - **zsh-nvm** - Node version manager
+
+### Cursor Editor Configuration
+- Extensions from `extensions.txt` (installed automatically)
+- Custom keybindings from `keybindings.json`
+- Editor settings from `settings.json`
 
 ### System Preferences
 - Caps Lock → Control key mapping
@@ -76,7 +81,7 @@ That's it! One command sets up your entire development environment.
 
 ## 🔄 Updating
 
-To backup your current configuration files:
+To backup your current configuration files (including Cursor extensions, keybindings, and settings):
 
 ```bash
 bash -c "$(curl -LsS https://raw.github.com/kykungz/dotfiles/main/update.sh)"
