@@ -36,6 +36,7 @@ That's it! One command sets up your entire development environment.
 - **pnpm** - Fast package manager
 - **bun** - JavaScript runtime
 - **tree** - Directory structure viewer
+- **watch** - Execute a program periodically, showing output fullscreen
 
 ### Applications
 - **BetterZip** - Archive utility

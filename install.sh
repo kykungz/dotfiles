@@ -6,7 +6,7 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile;
 source $HOME/.zprofile;
 
 # Formulae
-brew install --adopt git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun tree redis fzf nano;
+brew install --adopt git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun tree redis fzf nano watch;
 
 # Casks
 brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt;
