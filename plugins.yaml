@@ -1,0 +1,126 @@
+plugins:
+  prettylogs:
+    shortCut: Ctrl-L
+    description: "Pretty logs"
+    scopes:
+      - daemonset
+      - deploy
+      - job
+      - pod
+      - replicaset
+      - service
+      - statefulset
+    command: sh
+    args:
+      - -ic
+      - |
+        kubectl logs \
+          --prefix \
+          --timestamps \
+          --all-containers \
+          --follow \
+          --context="$CONTEXT" \
+          --namespace="$NAMESPACE" \
+          "$RESOURCE_NAME/$NAME" \
+        | jq --sort-keys --raw-input --raw-output '
+            . as $line
+            # Extract: [pod/name] timestamp content
+            | capture("^(?<prefix>\\S+)\\s+(?<timestamp>\\S+)\\s+(?<content>.*)$")
+            | .timestamp as $timestamp
+            | .prefix    as $prefix
+            | .content   as $content
+            | (
+                try (
+                  # Try to parse content as JSON
+                  $content
+                  | fromjson
+                  # Add timestamp and prefix to the JSON object
+                  | .timestamp = $timestamp
+                  | .prefix    = $prefix
+                  # Normalize: convert "msg" field to "message" for pino-pretty
+                  | if .msg and (.message | not) then
+                      .message = .msg | del(.msg)
+                    else
+                      .
+                    end
+                  | .severity = "INFO"
+                )
+                catch (
+                  # If content is not JSON, create a JSON object with the content as message
+                  {
+                    timestamp: $timestamp,
+                    prefix: $prefix,
+                    message: $content,
+                    severity: "INFO"
+                  }
+                )
+              )
+            | tojson
+          ' \
+        | pino-pretty \
+            --levelKey severity \
+            --messageKey message \
+            --timestampKey timestamp \
+            --ignore prefix \
+            --messageFormat $'\033[33m{prefix}\033[36m {message}' \
+            --singleLine \
+            --translateTime "SYS:standard"
+
+  prettylogsc:
+    shortCut: Ctrl-L
+    description: "Pretty logs"
+    scopes:
+      - container
+    command: sh
+    args:
+      - -ic
+      - |
+        kubectl logs \
+          --prefix \
+          --timestamps \
+          --follow \
+          --context="$CONTEXT" \
+          --namespace="$NAMESPACE" \
+          pod/$POD \
+          --container $NAME \
+        | jq --sort-keys --raw-input --raw-output '
+            . as $line
+            # Extract: [pod/container] timestamp content
+            | capture("^(?<prefix>\\S+)\\s+(?<timestamp>\\S+)\\s+(?<content>.*)$")
+            | .timestamp as $timestamp
+            | .prefix    as $prefix
+            | .content   as $content
+            | (
+                try (
+                  # Try to parse content as JSON
+                  $content
+                  | fromjson
+                  # Add timestamp and prefix to the JSON object
+                  | .timestamp = $timestamp
+                  | .prefix    = $prefix
+                  # Normalize: convert "msg" field to "message" for pino-pretty
+                  | if .msg and (.message | not) then
+                      .message = .msg | del(.msg)
+                    else
+                      .
+                    end
+                  | .severity = "INFO"
+                )
+                catch {
+                  # If content is not JSON, create a JSON object with the content as message
+                  timestamp: $timestamp,
+                  prefix: $prefix,
+                  message: $content,
+                  severity: "INFO"
+                }
+              )
+            | tojson
+          ' \
+        | pino-pretty \
+            --levelKey severity \
+            --messageKey message \
+            --timestampKey timestamp \
+            --ignore prefix \
+            --messageFormat $'\033[33m{prefix}\033[36m {message}' \
+            --singleLine \
+            --translateTime "SYS:standard"
