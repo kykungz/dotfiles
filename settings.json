@@ -98,14 +98,6 @@
     "vue": "html"
   },
   "emmet.triggerExpansionOnTab": true,
-  "eslint.validate": [
-    "javascriptreact",
-    "typescriptreact",
-    "typescript",
-    "javascript",
-    "html",
-    "vue"
-  ],
   "explorer.autoRevealExclude": {
     "**/node_modules": false
   },
