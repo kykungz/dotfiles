@@ -9,7 +9,7 @@ source $HOME/.zprofile;
 brew install --adopt git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun tree redis fzf nano watch derailed/k9s/k9s kubectx;
 
 # Casks
-brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt;
+brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt claude-code;
 
 # Cursor extensions
 grep -v '^$' extensions.txt | xargs -n 1 cursor --install-extension --force;
@@ -49,7 +49,7 @@ source $HOME/.zshrc;
 nvm use node;
 
 # Install global PNPM packages and approve builds
-pnpm install -g @anthropic-ai/claude-code concurrently eslint opencommit prettier tsx typescript;
+pnpm install -g concurrently eslint opencommit prettier tsx typescript;
 pnpm approve-builds -g;
 
 # Set Git to auto setup remote
