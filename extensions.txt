@@ -12,7 +12,6 @@ eamodio.gitlens
 ecmel.vscode-html-css
 esbenp.prettier-vscode
 file-icons.file-icons
-formulahendry.auto-rename-tag
 foxundermoon.shell-format
 github.vscode-github-actions
 golang.go
@@ -21,6 +20,7 @@ graphql.vscode-graphql-execution
 graphql.vscode-graphql-syntax
 hangxingliu.vscode-nginx-conf-hint
 hashicorp.terraform
+humao.rest-client
 jaspernorth.vscode-pigments
 ldez.ignore-files
 mechatroner.rainbow-csv

@@ -85,6 +85,7 @@
   "editor.guides.bracketPairsHorizontal": false,
   "editor.inlineSuggest.enabled": true,
   "editor.largeFileOptimizations": false,
+  "editor.linkedEditing": true,
   "editor.occurrencesHighlight": "off",
   "editor.renderWhitespace": "boundary",
   "editor.scrollBeyondLastLine": false,

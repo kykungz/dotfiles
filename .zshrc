@@ -85,6 +85,7 @@ export ZSH="$HOME/.oh-my-zsh"
 plugins=(git gitignore kubectl zsh-autosuggestions zsh-syntax-highlighting zsh-nvm direnv)
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -U compinit && compinit
 
 # Skip powerlevel10k in certain environments
 if [[ -n "$CURSOR_AGENT" ]]; then
@@ -139,6 +140,18 @@ alias p="pnpm"
 alias pn="pnpm"
 alias ls="eza --icons"
 alias kc="kubectx"
+
+function wtl {
+  echo "\033[1;36m━━━ Git Worktrees ━━━\033[0m"
+  git worktree list 2>/dev/null || echo "  (not in a git repository)"
+  echo ""
+  echo "\033[1;36m━━━ ~/.claude/worktrees ━━━\033[0m"
+  if [[ -d ~/.claude/worktrees ]] && [[ -n "$(ls -A ~/.claude/worktrees 2>/dev/null)" ]]; then
+    ls -la ~/.claude/worktrees
+  else
+    echo "  (empty)"
+  fi
+}
 
 function myip {
   echo '   'local ip: $(ipconfig getifaddr en0) | grep 'local ip'
@@ -213,3 +226,6 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Make aliases have autocompletion
+setopt completealiases
