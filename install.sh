@@ -50,7 +50,7 @@ cp ./tf "$HOME/.local/bin/";
 
 # Claude Code global instructions
 mkdir -p "$HOME/.claude";
-cp ./claude/CLAUDE.md "$HOME/.claude/";
+cp ./_CLAUDE.md "$HOME/.claude/CLAUDE.md";
 
 # Set Git to auto setup remote
 git config --global --type bool push.autoSetupRemote true;
