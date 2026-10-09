@@ -48,6 +48,10 @@ pnpm approve-builds -g;
 mkdir -p "$HOME/.local/bin";
 cp ./tf "$HOME/.local/bin/";
 
+# Claude Code global instructions
+mkdir -p "$HOME/.claude";
+cp ./CLAUDE.md "$HOME/.claude/";
+
 # Set Git to auto setup remote
 git config --global --type bool push.autoSetupRemote true;
 
