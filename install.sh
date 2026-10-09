@@ -1,22 +1,15 @@
 #!/bin/bash
 
-# Homebrew
+# Homebrew, then the login environment (.zprofile) so brew is on PATH for the steps below
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>$HOME/.zprofile;
+cp ./.zprofile $HOME/;
 source $HOME/.zprofile;
 
 # Formulae
 brew install --adopt git gh wget ccat httpie eza direnv pnpm meetingbar oven-sh/bun/bun tree redis fzf nano watch derailed/k9s/k9s kubectx;
 
 # Casks
-brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code cursor chatgpt claude-code;
-
-# Cursor extensions
-grep -v '^$' extensions.txt | xargs -n 1 cursor --install-extension --force;
-
-# Cursor settings
-cp ./keybindings.json "$HOME/Library/Application Support/Cursor/User/";
-cp ./settings.json "$HOME/Library/Application Support/Cursor/User/";
+brew install --adopt --cask betterzip docker imageoptim slack telegram cloudflare-warp google-chrome iterm2 spotify textmate discord google-cloud-sdk rectangle tableplus visual-studio-code chatgpt claude-code;
 
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended;
@@ -40,18 +33,20 @@ cp ./.p10k.zsh $HOME/;
 # iTerm2
 cp ./com.googlecode.iterm2.plist $HOME/Library/Preferences/;
 
-# ZSH
+# ZSH (login environment in .zprofile, interactive setup in .zshrc)
 cp ./.zshrc $HOME/;
 
-# Reload Zsh configuration to activate plugins (e.g., zsh-nvm)
-source $HOME/.zshrc;
-
-# Set Node.js version to the latest LTS version
-nvm use node;
+# Install the latest Node.js LTS and make it the default. Runs in an interactive zsh,
+# because .zshrc is zsh-only and the zsh-nvm plugin in it clones and loads nvm.
+zsh -ic 'nvm install --lts';
 
 # Install global PNPM packages and approve builds
-pnpm install -g concurrently eslint opencommit prettier tsx typescript;
+pnpm install -g concurrently eslint mprocs opencommit prettier tsx typescript;
 pnpm approve-builds -g;
+
+# Terraform helper: tf apply|plan|unlock|roots <env|all> (needs bun and mprocs)
+mkdir -p "$HOME/.local/bin";
+cp ./tf "$HOME/.local/bin/";
 
 # Set Git to auto setup remote
 git config --global --type bool push.autoSetupRemote true;
@@ -180,3 +175,6 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf";
 
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false;
+
+# The shell that ran this script does not inherit its environment
+echo "Done. Open a new terminal to load the environment.";
