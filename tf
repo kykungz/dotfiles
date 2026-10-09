@@ -210,9 +210,10 @@ async function run(action: "apply" | "plan", envs: Env[], only: string[]): Promi
   if (tty) {
     if (!Bun.which("mprocs")) return fail("mprocs not found (pnpm add -g mprocs)", 127);
     const title = `terraform ${action}`;
-    // The sidebar has a fixed width, so size it to the longest name plus the marker and status.
+    // The sidebar has a fixed width: the longest name, plus the marker, a status such as
+    // "DOWN (0)" and the borders.
     const config = join(gate, "mprocs.yaml");
-    writeFileSync(config, `proc_list_width: ${Math.max(...names.map((n) => n.length), title.length) + 8}\n`);
+    writeFileSync(config, `proc_list_width: ${Math.max(...names.map((n) => n.length), title.length) + 14}\n`);
     const shellWords = (cmd: string[]) => cmd.map((w) => `'${w.replace(/'/g, `'\\''`)}'`).join(" ");
     const proc = Bun.spawn(
       ["mprocs", "-c", config, "--proc-list-title", title, "--names", names.join(","), ...commands.map(shellWords)],
