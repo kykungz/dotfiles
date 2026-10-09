@@ -7,23 +7,24 @@
 //   tf roots  <env|all>              print the run order as a tree
 //
 // Discovery: every directory in the repo with a .tf file that declares a `backend "..."` block is
-// a root (modules never declare one). Roots that share a parent directory form an environment,
-// named after that parent; a backend block directly in a dev/ or prod/ folder makes that folder
-// an environment with one root. The search is a git grep: fast, and it skips ignored paths.
-// Untracked files count too.
+// a root (modules never declare one). The search is a git grep, so it is fast, skips ignored
+// paths and counts untracked files. An environment is a .envrc: the one in the root's own
+// directory, else the one in its parent. Nothing higher counts, so a repo-level .envrc never
+// turns the whole repo into an environment. A root with neither is an error. Both layouts work:
 //
-//   <env>/.envrc            sourced before terraform (TF_CLI_ARGS_*, impersonation, ...)
-//   <env>/<root>/.envrc     also sourced, when present
-//   <env>/<root>/main.tf    one terraform root per directory
-//   <env>/.tf-deps          optional: "root: dep dep" lines that override the inferred order
+//   <env>/.envrc + <env>/<root>/main.tf      environment above its roots (trade)
+//   <root>/<env>/.envrc + <root>/<env>/main.tf   environment inside each root (superapp)
 //
+// Roots whose .envrc directories share a name form one environment of that name. A root is
+// named after its own directory in the first layout and after its parent in the second.
 // <env> matches an environment name exactly, then by suffix (dev -> nansen-trade-dev), then by
-// unique substring. `all` runs every environment.
+// unique substring. `all` runs every environment. An optional .tf-deps next to the .envrc holds
+// "root: dep dep" lines that override the inferred order.
 //
 // Root order: a root that reads another root's state through terraform_remote_state (gcs
 // prefix or s3 key) waits for that root. A root that uses the kubernetes, helm or kubectl
 // provider waits for a sibling named gke, eks, aks or cluster, because its providers read the
-// live API during plan. .tf-deps replaces the inferred list for a root.
+// live API during plan.
 //
 // On a tty every root gets its own mprocs pane; `r` restarts a pane. Without a tty the roots
 // run one at a time in dependency order. Each root writes a plain-text log to
@@ -34,14 +35,15 @@
 // Needs: bun, terraform, mprocs (pnpm add -g mprocs), gcloud (unlock only).
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { basename, dirname, join, resolve } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { $ } from "bun";
 
 const SELF = Bun.main;
 
 // ---------- discovery ----------
 
-type Env = { name: string; dir: string; roots: string[] };
+type Root = { name: string; dir: string; envDir: string };
+type Env = { name: string; roots: Root[] };
 
 async function gitRoot(): Promise<string> {
   const out = await $`git rev-parse --show-toplevel`.nothrow().quiet();
@@ -56,39 +58,39 @@ function stripComments(hcl: string): string {
 const BACKEND = /^[ \t]*backend[ \t]+"/m;
 
 /** Absolute directories whose .tf files declare a backend block. */
-async function rootDirs(): Promise<string[]> {
-  const root = await gitRoot();
+async function rootDirs(repo: string): Promise<string[]> {
   // git grep is the fast prefilter; the file content check drops block-commented matches.
-  const listed = await $`git grep -l --untracked -E ${'^[[:space:]]*backend[[:space:]]+"'} -- ${"*.tf"}`.cwd(root).nothrow().quiet().text();
+  const listed = await $`git grep -l --untracked -E ${'^[[:space:]]*backend[[:space:]]+"'} -- ${"*.tf"}`.cwd(repo).nothrow().quiet().text();
   const files = listed
     .split("\n")
     .filter(Boolean)
-    .map((f) => resolve(root, f))
+    .map((f) => resolve(repo, f))
     .filter((f) => BACKEND.test(stripComments(readFileSync(f, "utf8"))));
   return [...new Set(files.map(dirname))].sort();
 }
 
-/** Roots grouped by parent directory. */
+/** Roots grouped into environments by the name of their .envrc directory. */
 async function discoverEnvs(): Promise<Env[]> {
-  const byParent = new Map<string, string[]>();
-  for (const dir of await rootDirs()) byParent.set(dirname(dir), [...(byParent.get(dirname(dir)) ?? []), basename(dir)]);
-  const envs = [...byParent].map(([dir, roots]) => ({ name: basename(dir), dir, roots }));
-  if (!envs.length) fail(`no .tf file with a backend block under ${await gitRoot()}`);
-  return envs;
+  const repo = await gitRoot();
+  const byName = new Map<string, Root[]>();
+  for (const dir of await rootDirs(repo)) {
+    let root: Root;
+    if (existsSync(join(dir, ".envrc"))) root = { name: basename(dirname(dir)), dir, envDir: dir };
+    else if (existsSync(join(dirname(dir), ".envrc"))) root = { name: basename(dir), dir, envDir: dirname(dir) };
+    else fail(`${relative(repo, dir)} has no .envrc in its directory or its parent; an environment is a directory with .envrc`);
+    const env = basename(root.envDir);
+    byName.set(env, [...(byName.get(env) ?? []), root]);
+  }
+  if (!byName.size) fail(`no .tf file with a backend block under ${repo}`);
+  return [...byName].map(([name, roots]) => ({ name, roots }));
 }
 
 async function resolveEnvs(arg: string): Promise<Env[]> {
   const envs = await discoverEnvs();
   if (arg === "all") return envs;
-  const match = (list: Env[]) => {
-    let found = list.filter((e) => e.name === arg);
-    if (!found.length) found = list.filter((e) => e.name.endsWith(`-${arg}`));
-    if (!found.length) found = list.filter((e) => e.name.includes(arg));
-    return found;
-  };
-  let found = match(envs);
-  // A backend block directly in dev/ or prod/: that folder is the environment and its only root.
-  if (!found.length) found = match(envs.flatMap((e) => e.roots.map((r) => ({ name: r, dir: join(e.dir, r), roots: ["."] }))));
+  let found = envs.filter((e) => e.name === arg);
+  if (!found.length) found = envs.filter((e) => e.name.endsWith(`-${arg}`));
+  if (!found.length) found = envs.filter((e) => e.name.includes(arg));
   if (found.length === 1) return found;
   if (found.length === 0) return fail(`no environment matches '${arg}' (known: ${envs.map((e) => e.name).join(" ")})`);
   return fail(`'${arg}' is ambiguous: ${found.map((e) => e.name).join(" ")}`);
@@ -103,49 +105,50 @@ function tfSource(dir: string): string {
     .join("\n");
 }
 
-/** Dependencies of one root. .tf-deps wins; else inferred from the HCL. */
-function depsOf(envDir: string, root: string, siblings: string[]): string[] {
-  const depsFile = join(envDir, ".tf-deps");
+/** Dependencies of one root, as sibling names. .tf-deps wins; else inferred from the HCL. */
+function depsOf(root: Root, siblings: Root[]): string[] {
+  const names = siblings.map((s) => s.name);
+  const depsFile = join(root.envDir, ".tf-deps");
   if (existsSync(depsFile)) {
     for (const raw of readFileSync(depsFile, "utf8").split("\n")) {
       const line = raw.replace(/#.*/, "");
       const [name, rest] = line.split(":", 2);
-      if (name?.trim() === root && rest !== undefined) return rest.trim().split(/\s+/).filter(Boolean);
+      if (name?.trim() === root.name && rest !== undefined) return rest.trim().split(/\s+/).filter(Boolean);
     }
   }
 
-  const src = tfSource(join(envDir, root));
+  const src = tfSource(root.dir);
   const deps = new Set<string>();
 
   // remote_state: gcs `prefix = "x"` or s3 `key = "x/terraform.tfstate"` where x is a sibling.
   for (const block of src.matchAll(/data\s+"terraform_remote_state"\s+"[^"]*"\s*\{([\s\S]*?)\n\}/g)) {
     for (const ref of block[1].matchAll(/\b(?:prefix|key)\s*=\s*"([^"]+)"/g)) {
       const name = ref[1].split("/")[0].replace(/\.tfstate$/, "");
-      if (name !== root && siblings.includes(name)) deps.add(name);
+      if (name !== root.name && names.includes(name)) deps.add(name);
     }
   }
 
   // Live-API providers wait for the cluster root.
   if (/^\s*provider\s+"(kubernetes|helm|kubectl)"/m.test(src)) {
     const cluster = ["gke", "eks", "aks", "cluster", "kubernetes-cluster", "k8s-cluster"].find(
-      (c) => c !== root && siblings.includes(c),
+      (c) => c !== root.name && names.includes(c),
     );
     if (cluster) deps.add(cluster);
   }
   return [...deps];
 }
 
-type Ordered = { root: string; deps: string[] };
+type Ordered = { root: Root; deps: string[] };
 
 /** Topological order; ties keep name order. */
 function orderedRoots(env: Env): Ordered[] {
-  const deps = new Map(env.roots.map((r) => [r, depsOf(env.dir, r, env.roots)]));
+  const deps = new Map(env.roots.map((r) => [r.name, depsOf(r, env.roots)]));
   const done: Ordered[] = [];
   let pending = env.roots;
   while (pending.length) {
-    const ready = pending.filter((r) => deps.get(r)!.every((d) => done.some((o) => o.root === d)));
-    if (!ready.length) fail(`dependency cycle among: ${pending.join(" ")}`);
-    for (const r of ready) done.push({ root: r, deps: deps.get(r)! });
+    const ready = pending.filter((r) => deps.get(r.name)!.every((d) => done.some((o) => o.root.name === d)));
+    if (!ready.length) fail(`dependency cycle among: ${pending.map((r) => r.name).join(" ")}`);
+    for (const r of ready) done.push({ root: r, deps: deps.get(r.name)! });
     pending = pending.filter((r) => !ready.includes(r));
   }
   return done;
@@ -155,18 +158,17 @@ function orderedRoots(env: Env): Ordered[] {
 
 /** A root hangs under the dependency that finishes last. */
 function printTree(env: Env): void {
-  const order = orderedRoots(env);
   const children = new Map<string, string[]>();
   const top: string[] = [];
-  for (const { root, deps } of order) {
+  for (const { root, deps } of orderedRoots(env)) {
     const parent = deps.at(-1);
-    if (parent === undefined) top.push(root);
-    else children.set(parent, [...(children.get(parent) ?? []), root]);
+    if (parent === undefined) top.push(root.name);
+    else children.set(parent, [...(children.get(parent) ?? []), root.name]);
   }
   console.log(env.name);
-  const branch = (root: string, prefix: string, last: boolean) => {
-    console.log(`${prefix}${last ? "└── " : "├── "}${root}`);
-    const kids = children.get(root) ?? [];
+  const branch = (name: string, prefix: string, last: boolean) => {
+    console.log(`${prefix}${last ? "└── " : "├── "}${name}`);
+    const kids = children.get(name) ?? [];
     kids.forEach((k, i) => branch(k, prefix + (last ? "    " : "│   "), i === kids.length - 1));
   };
   top.forEach((r, i) => branch(r, "", i === top.length - 1));
@@ -192,13 +194,13 @@ async function run(action: "apply" | "plan", envs: Env[], only: string[]): Promi
     const envGate = join(gate, env.name);
     mkdirSync(envGate);
     for (const { root, deps } of orderedRoots(env)) {
-      if (only.length && !only.includes(root)) {
+      if (only.length && !only.includes(root.name)) {
         // A root that is not in this run is a dependency nobody writes a marker for.
-        writeFileSync(join(envGate, `${root}.ok`), "");
+        writeFileSync(join(envGate, `${root.name}.ok`), "");
         continue;
       }
-      names.push(`${env.name}/${root}`);
-      commands.push(["bun", SELF, "_root", action, env.dir, root, envGate, logDir, ...deps]);
+      names.push(`${env.name}/${root.name}`);
+      commands.push(["bun", SELF, "_root", action, env.name, root.name, root.dir, root.envDir, envGate, logDir, ...deps]);
     }
   }
   if (!names.length) return fail(`${action}: no roots to run`);
@@ -225,13 +227,13 @@ async function run(action: "apply" | "plan", envs: Env[], only: string[]): Promi
   return status;
 }
 
-/** Environment after sourcing the .envrc of the env dir, then of the root (direnv-style files of exports). */
-async function envWithEnvrc(envDir: string, root: string): Promise<Record<string, string>> {
+/** Environment after sourcing the .envrc of the env dir, then of the root dir (direnv-style files of exports). */
+async function envWithEnvrc(envDir: string, rootDir: string): Promise<Record<string, string>> {
   const env = { ...process.env } as Record<string, string>;
-  const files = [join(envDir, ".envrc"), join(envDir, root, ".envrc")].filter((f) => existsSync(f));
+  const files = [...new Set([join(envDir, ".envrc"), join(rootDir, ".envrc")])].filter((f) => existsSync(f));
   if (!files.length) return env;
   const script = files.map((f) => `source ${JSON.stringify(f)} >/dev/null 2>&1`).join("; ") + "; env -0";
-  const out = await $`bash -c ${script}`.cwd(envDir).quiet();
+  const out = await $`bash -c ${script}`.cwd(rootDir).quiet();
   for (const pair of out.text().split("\0")) {
     const i = pair.indexOf("=");
     if (i > 0) env[pair.slice(0, i)] = pair.slice(i + 1);
@@ -244,21 +246,22 @@ const ANSI = /\x1b\[[0-9;?]*[ -\/]*[@-~]/g;
 /** One root, one process. Waits on the markers of its dependencies, then writes its own. */
 async function rootProcess(
   action: "apply" | "plan",
-  envDir: string,
+  env: string,
   root: string,
+  rootDir: string,
+  envDir: string,
   gate: string,
   logDir: string,
   deps: string[],
 ): Promise<number> {
-  const env = basename(envDir);
   const label = `${env}/${root}`;
-  const log = join(logDir, `tf-${env}-${root.replaceAll("/", "_")}.log`);
+  const log = join(logDir, `tf-${env}-${root}.log`);
   writeFileSync(log, "");
   console.log(`log: ${log}`);
 
-  const procEnv = await envWithEnvrc(envDir, root);
+  const procEnv = await envWithEnvrc(envDir, rootDir);
   // Per-root helm registry config: parallel logins race in the shared keychain store.
-  procEnv.HELM_REGISTRY_CONFIG = join(gate, `helm-registry-${root.replaceAll("/", "_")}.json`);
+  procEnv.HELM_REGISTRY_CONFIG = join(gate, `helm-registry-${root}.json`);
 
   const ok = (d: string) => existsSync(join(gate, `${d}.ok`));
   const failed = (d: string) => existsSync(join(gate, `${d}.failed`));
@@ -276,15 +279,15 @@ async function rootProcess(
 
   const tfArgs = action === "apply" ? ["apply", "-auto-approve", "-input=false"] : ["plan", "-input=false"];
   const steps = [
-    ["terraform", `-chdir=${root}`, "init", "-input=false"],
-    ["terraform", `-chdir=${root}`, ...tfArgs],
+    ["terraform", "init", "-input=false"],
+    ["terraform", ...tfArgs],
   ];
   const sink = Bun.file(log).writer();
   sink.write(`# ${new Date().toISOString().replace(/\.\d+Z$/, "Z")} ${label}\n`);
   let status = 0;
   for (const cmd of steps) {
     // The pane keeps terraform's output as is; the file gets the same lines without escapes.
-    const proc = Bun.spawn(["bash", "-c", 'exec "$@" 2>&1', "_", ...cmd], { cwd: envDir, env: procEnv, stdout: "pipe" });
+    const proc = Bun.spawn(["bash", "-c", 'exec "$@" 2>&1', "_", ...cmd], { cwd: rootDir, env: procEnv, stdout: "pipe" });
     for await (const chunk of proc.stdout) {
       process.stderr.write(chunk);
       sink.write(new TextDecoder().decode(chunk).replace(ANSI, ""));
@@ -308,8 +311,8 @@ async function rootProcess(
 async function unlock(envs: Env[]): Promise<number> {
   if (!Bun.which("gcloud")) return fail("unlock: gcloud not found", 127);
   let status = 0;
-  for (const { name: env, dir: envDir, roots } of envs) {
-    const src = stripComments(roots.map((r) => tfSource(join(envDir, r))).join("\n"));
+  for (const { name: env, roots } of envs) {
+    const src = stripComments(roots.map((r) => tfSource(r.dir)).join("\n"));
     const buckets = new Set<string>();
     for (const block of src.matchAll(/backend\s+"gcs"\s*\{([\s\S]*?)\}/g)) {
       const m = block[1].match(/\bbucket\s*=\s*"([^"]+)"/);
@@ -357,8 +360,8 @@ function usage(): void {
 async function main(argv: string[]): Promise<number> {
   const [action, envArg, ...rest] = argv;
   if (action === "_root") {
-    const [a, envDir, root, gate, logDir, ...deps] = [envArg, ...rest];
-    return rootProcess(a as "apply" | "plan", envDir, root, gate, logDir, deps);
+    const [a, env, root, rootDir, envDir, gate, logDir, ...deps] = [envArg, ...rest];
+    return rootProcess(a as "apply" | "plan", env, root, rootDir, envDir, gate, logDir, deps);
   }
   if (!action || action === "-h" || action === "--help") return (usage(), 0);
   if (!["apply", "plan", "unlock", "roots"].includes(action)) {
