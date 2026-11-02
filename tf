@@ -26,6 +26,13 @@
 // provider waits for a sibling named gke, eks, aks or cluster, because its providers read the
 // live API during plan.
 //
+// Helm roots run one at a time when docker-credential-osxkeychain is on PATH. The helm provider
+// logs in to its OCI registries on start and helm stores that login through the keychain helper
+// whenever its registry config holds no auth yet (a per-root config file does not change that).
+// The helper's store is delete-then-add, so two roots logging in at once leave the loser with
+// "The specified item already exists in the keychain. (-25299)". The lock is one directory,
+// <git root>/logs/.tf-gate/helm-registry.lock, shared by every environment of the run.
+//
 // On a tty every root gets its own mprocs pane; `r` restarts a pane. Without a tty the roots
 // run one at a time in dependency order. Each root writes a plain-text log to
 // <git root>/logs/tf-<env>-<root>.log; a run first deletes the tf-*.log files of earlier runs,
@@ -261,8 +268,6 @@ async function rootProcess(
   console.log(`log: ${log}`);
 
   const procEnv = await envWithEnvrc(envDir, rootDir);
-  // Per-root helm registry config: parallel logins race in the shared keychain store.
-  procEnv.HELM_REGISTRY_CONFIG = join(gate, `helm-registry-${root}.json`);
 
   const ok = (d: string) => existsSync(join(gate, `${d}.ok`));
   const failed = (d: string) => existsSync(join(gate, `${d}.failed`));
@@ -285,22 +290,57 @@ async function rootProcess(
   ];
   const sink = Bun.file(log).writer();
   sink.write(`# ${new Date().toISOString().replace(/\.\d+Z$/, "Z")} ${label}\n`);
+  const lock = await helmRegistryLock(rootDir, dirname(gate), label);
   let status = 0;
-  for (const cmd of steps) {
-    // The pane keeps terraform's output as is; the file gets the same lines without escapes.
-    const proc = Bun.spawn(["bash", "-c", 'exec "$@" 2>&1', "_", ...cmd], { cwd: rootDir, env: procEnv, stdout: "pipe" });
-    for await (const chunk of proc.stdout) {
-      process.stderr.write(chunk);
-      sink.write(new TextDecoder().decode(chunk).replace(ANSI, ""));
+  try {
+    for (const cmd of steps) {
+      // The pane keeps terraform's output as is; the file gets the same lines without escapes.
+      const proc = Bun.spawn(["bash", "-c", 'exec "$@" 2>&1', "_", ...cmd], { cwd: rootDir, env: procEnv, stdout: "pipe" });
+      for await (const chunk of proc.stdout) {
+        process.stderr.write(chunk);
+        sink.write(new TextDecoder().decode(chunk).replace(ANSI, ""));
+      }
+      status = await proc.exited;
+      if (status !== 0) break;
     }
-    status = await proc.exited;
-    if (status !== 0) break;
+  } finally {
+    lock?.release();
   }
   await sink.end();
 
   writeFileSync(join(gate, status === 0 ? `${root}.ok` : `${root}.failed`), "");
   if (status !== 0) console.error(`failed: ${label} (log: ${log})`);
   return status;
+}
+
+/**
+ * Holds <runGate>/helm-registry.lock while a helm root runs, when docker-credential-osxkeychain
+ * is on PATH (see the header). Returns null when the root needs no lock. mkdir is atomic, so
+ * the first root to create the directory holds it; the holder's label inside names who to wait for.
+ */
+async function helmRegistryLock(rootDir: string, runGate: string, label: string): Promise<{ release: () => void } | null> {
+  if (!/^\s*provider\s+"helm"/m.test(tfSource(rootDir)) || !Bun.which("docker-credential-osxkeychain")) return null;
+  const dir = join(runGate, "helm-registry.lock");
+  let waited = false;
+  for (;;) {
+    try {
+      mkdirSync(dir);
+      break;
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code !== "EEXIST") throw e;
+      if (!waited) {
+        let holder = "another helm root";
+        try {
+          holder = readFileSync(join(dir, "holder"), "utf8").trim() || holder;
+        } catch {}
+        console.log(`waiting for the helm registry login lock (held by ${holder})`);
+        waited = true;
+      }
+      await Bun.sleep(1000);
+    }
+  }
+  writeFileSync(join(dir, "holder"), label);
+  return { release: () => rmSync(dir, { recursive: true, force: true }) };
 }
 
 // ---------- unlock ----------
