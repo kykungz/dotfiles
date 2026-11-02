@@ -308,36 +308,54 @@ async function rootProcess(
 /**
  * The GCS backend keeps one default.tflock object next to the state; removing it is the whole
  * unlock. Buckets come from the backend blocks of each root. Never unlock while an apply runs.
+ *
+ * gcloud runs with the root's .envrc applied, as terraform does. gcloud ignores the provider's
+ * GOOGLE_IMPERSONATE_SERVICE_ACCOUNT, so it is mapped to gcloud's own
+ * CLOUDSDK_AUTH_IMPERSONATE_SERVICE_ACCOUNT. Without this the listing runs as the user's own
+ * gcloud account, which usually cannot list the state bucket, and a 403 looked like "no locks".
+ * A failed listing is an error, not an empty result.
  */
 async function unlock(envs: Env[]): Promise<number> {
   if (!Bun.which("gcloud")) return fail("unlock: gcloud not found", 127);
   let status = 0;
   for (const { name: env, roots } of envs) {
-    const src = stripComments(roots.map((r) => tfSource(r.dir)).join("\n"));
-    const buckets = new Set<string>();
-    for (const block of src.matchAll(/backend\s+"gcs"\s*\{([\s\S]*?)\}/g)) {
-      const m = block[1].match(/\bbucket\s*=\s*"([^"]+)"/);
-      if (m) buckets.add(m[1]);
+    const buckets = new Map<string, Root>();
+    for (const root of roots) {
+      const src = stripComments(tfSource(root.dir));
+      for (const block of src.matchAll(/backend\s+"gcs"\s*\{([\s\S]*?)\}/g)) {
+        const m = block[1].match(/\bbucket\s*=\s*"([^"]+)"/);
+        if (m && !buckets.has(m[1])) buckets.set(m[1], root);
+      }
     }
     if (!buckets.size) {
       console.error(`${env}: no gcs backend found; tf unlock supports gcs only (use terraform force-unlock <id>)`);
       status = 1;
       continue;
     }
-    for (const bucket of buckets) {
-      const locks = (await $`gcloud storage ls ${`gs://${bucket}/**.tflock`}`.nothrow().quiet()).stdout
-        .toString()
-        .split("\n")
-        .filter(Boolean);
+    for (const [bucket, root] of buckets) {
+      const gcloudEnv = await envWithEnvrc(root.envDir, root.dir);
+      const sa = gcloudEnv.GOOGLE_IMPERSONATE_SERVICE_ACCOUNT;
+      if (sa) {
+        gcloudEnv.CLOUDSDK_AUTH_IMPERSONATE_SERVICE_ACCOUNT ??= sa;
+        gcloudEnv.CLOUDSDK_CORE_VERBOSITY ??= "error"; // drops the per-call impersonation WARNING
+      }
+      const ls = await $`gcloud storage ls ${`gs://${bucket}/**.tflock`}`.env(gcloudEnv).nothrow().quiet();
+      const stderr = ls.stderr.toString().trim();
+      if (ls.exitCode !== 0 && !/matched no objects/i.test(stderr)) {
+        console.error(`${env}: cannot list gs://${bucket}${sa ? ` as ${sa}` : ""}:\n${stderr}`);
+        status = 1;
+        continue;
+      }
+      const locks = ls.stdout.toString().split("\n").filter(Boolean);
       if (!locks.length) {
         console.log(`${env}: no locks in gs://${bucket}`);
         continue;
       }
       for (const lock of locks) {
         console.log(`${env}: unlocking ${lock}`);
-        await $`gcloud storage cat ${lock}`.nothrow();
+        await $`gcloud storage cat ${lock}`.env(gcloudEnv).nothrow();
         console.log();
-        if ((await $`gcloud storage rm ${lock}`.nothrow()).exitCode !== 0) status = 1;
+        if ((await $`gcloud storage rm ${lock}`.env(gcloudEnv).nothrow()).exitCode !== 0) status = 1;
       }
     }
   }
