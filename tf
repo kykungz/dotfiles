@@ -8,18 +8,24 @@
 //
 // Discovery: every directory in the repo with a .tf file that declares a `backend "..."` block is
 // a root (modules never declare one). The search is a git grep, so it is fast, skips ignored
-// paths and counts untracked files. An environment is a .envrc: the one in the root's own
-// directory, else the one in its parent. Nothing higher counts, so a repo-level .envrc never
-// turns the whole repo into an environment. A root with neither is an error. Both layouts work:
+// paths and counts untracked files. An environment is a directory with an env file, .envrc or
+// mise.toml: the root's own directory, else its parent. Nothing higher counts, so a repo-level
+// .envrc or mise.toml never turns the whole repo into an environment. A root with neither is an
+// error. Both layouts work:
 //
 //   <env>/.envrc + <env>/<root>/main.tf      environment above its roots (trade)
 //   <root>/<env>/.envrc + <root>/<env>/main.tf   environment inside each root (superapp)
 //
-// Roots whose .envrc directories share a name form one environment of that name. A root is
+// Roots whose env directories share a name form one environment of that name. A root is
 // named after its own directory in the first layout and after its parent in the second.
 // <env> matches an environment name exactly, then by suffix (dev -> nansen-trade-dev), then by
-// unique substring. `all` runs every environment. An optional .tf-deps next to the .envrc holds
-// "root: dep dep" lines that override the inferred order.
+// unique substring. `all` runs every environment. An optional .tf-deps next to the env file
+// holds "root: dep dep" lines that override the inferred order.
+//
+// A root's process environment: the .envrc of the env dir then of the root dir are sourced
+// (direnv-style files of exports); when either dir holds a mise.toml, `mise env --json` run in
+// the root dir is applied on top, so mise's [env] tables and tool paths count as they would in
+// a mise-hooked shell. mise refuses an untrusted file: run `mise trust` in that dir once.
 //
 // Root order: a root that reads another root's state through terraform_remote_state (gcs
 // prefix or s3 key) waits for that root. A root that uses the kubernetes, helm or kubectl
@@ -76,15 +82,22 @@ async function rootDirs(repo: string): Promise<string[]> {
   return [...new Set(files.map(dirname))].sort();
 }
 
-/** Roots grouped into environments by the name of their .envrc directory. */
+const ENV_FILES = [".envrc", "mise.toml"];
+
+/** True when the directory holds an env file (.envrc or mise.toml). */
+function isEnvDir(dir: string): boolean {
+  return ENV_FILES.some((f) => existsSync(join(dir, f)));
+}
+
+/** Roots grouped into environments by the name of their env directory. */
 async function discoverEnvs(): Promise<Env[]> {
   const repo = await gitRoot();
   const byName = new Map<string, Root[]>();
   for (const dir of await rootDirs(repo)) {
     let root: Root;
-    if (existsSync(join(dir, ".envrc"))) root = { name: basename(dirname(dir)), dir, envDir: dir };
-    else if (existsSync(join(dirname(dir), ".envrc"))) root = { name: basename(dir), dir, envDir: dirname(dir) };
-    else fail(`${relative(repo, dir)} has no .envrc in its directory or its parent; an environment is a directory with .envrc`);
+    if (isEnvDir(dir)) root = { name: basename(dirname(dir)), dir, envDir: dir };
+    else if (isEnvDir(dirname(dir))) root = { name: basename(dir), dir, envDir: dirname(dir) };
+    else fail(`${relative(repo, dir)} has no .envrc or mise.toml in its directory or its parent; an environment is a directory with one`);
     const env = basename(root.envDir);
     byName.set(env, [...(byName.get(env) ?? []), root]);
   }
@@ -235,16 +248,32 @@ async function run(action: "apply" | "plan", envs: Env[], only: string[]): Promi
   return status;
 }
 
-/** Environment after sourcing the .envrc of the env dir, then of the root dir (direnv-style files of exports). */
-async function envWithEnvrc(envDir: string, rootDir: string): Promise<Record<string, string>> {
+/**
+ * Environment of a root: the .envrc of the env dir, then of the root dir, sourced (direnv-style
+ * files of exports); then, when either dir holds a mise.toml, `mise env --json` from the root dir
+ * applied on top (mise merges the root's config with every ancestor's, as a hooked shell would).
+ */
+async function envForRoot(envDir: string, rootDir: string): Promise<Record<string, string>> {
   const env = { ...process.env } as Record<string, string>;
-  const files = [...new Set([join(envDir, ".envrc"), join(rootDir, ".envrc")])].filter((f) => existsSync(f));
-  if (!files.length) return env;
-  const script = files.map((f) => `source ${JSON.stringify(f)} >/dev/null 2>&1`).join("; ") + "; env -0";
-  const out = await $`bash -c ${script}`.cwd(rootDir).quiet();
-  for (const pair of out.text().split("\0")) {
-    const i = pair.indexOf("=");
-    if (i > 0) env[pair.slice(0, i)] = pair.slice(i + 1);
+  const dirs = [...new Set([envDir, rootDir])];
+
+  const envrcs = dirs.map((d) => join(d, ".envrc")).filter((f) => existsSync(f));
+  if (envrcs.length) {
+    const script = envrcs.map((f) => `source ${JSON.stringify(f)} >/dev/null 2>&1`).join("; ") + "; env -0";
+    const out = await $`bash -c ${script}`.cwd(rootDir).quiet();
+    for (const pair of out.text().split("\0")) {
+      const i = pair.indexOf("=");
+      if (i > 0) env[pair.slice(0, i)] = pair.slice(i + 1);
+    }
+  }
+
+  if (dirs.some((d) => existsSync(join(d, "mise.toml")))) {
+    const out = await $`mise env --json`.cwd(rootDir).env(env).nothrow().quiet();
+    if (out.exitCode !== 0) {
+      const why = out.stderr.toString().trim().split("\n").slice(0, 2).join(" ");
+      fail(`mise env failed in ${rootDir}: ${why}`);
+    }
+    Object.assign(env, JSON.parse(out.text()) as Record<string, string>);
   }
   return env;
 }
@@ -267,7 +296,7 @@ async function rootProcess(
   writeFileSync(log, "");
   console.log(`log: ${log}`);
 
-  const procEnv = await envWithEnvrc(envDir, rootDir);
+  const procEnv = await envForRoot(envDir, rootDir);
 
   const ok = (d: string) => existsSync(join(gate, `${d}.ok`));
   const failed = (d: string) => existsSync(join(gate, `${d}.failed`));
@@ -349,7 +378,7 @@ async function helmRegistryLock(rootDir: string, runGate: string, label: string)
  * The GCS backend keeps one default.tflock object next to the state; removing it is the whole
  * unlock. Buckets come from the backend blocks of each root. Never unlock while an apply runs.
  *
- * gcloud runs with the root's .envrc applied, as terraform does. gcloud ignores the provider's
+ * gcloud runs with the root's environment applied, as terraform does. gcloud ignores the provider's
  * GOOGLE_IMPERSONATE_SERVICE_ACCOUNT, so it is mapped to gcloud's own
  * CLOUDSDK_AUTH_IMPERSONATE_SERVICE_ACCOUNT. Without this the listing runs as the user's own
  * gcloud account, which usually cannot list the state bucket, and a 403 looked like "no locks".
@@ -373,7 +402,7 @@ async function unlock(envs: Env[]): Promise<number> {
       continue;
     }
     for (const [bucket, root] of buckets) {
-      const gcloudEnv = await envWithEnvrc(root.envDir, root.dir);
+      const gcloudEnv = await envForRoot(root.envDir, root.dir);
       const sa = gcloudEnv.GOOGLE_IMPERSONATE_SERVICE_ACCOUNT;
       if (sa) {
         gcloudEnv.CLOUDSDK_AUTH_IMPERSONATE_SERVICE_ACCOUNT ??= sa;
